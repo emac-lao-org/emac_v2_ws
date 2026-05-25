@@ -1,0 +1,14 @@
+query getDataEntryLogCount($where: emac_entry_logs_bool_exp!) {
+  emac_entry_logs_aggregate(where: $where) { aggregate { count } }
+}
+
+query getDataEntryLog($limit: Int!, $offset: Int!, $where: emac_entry_logs_bool_exp!) {
+  emac_entry_logs(limit: $limit, offset: $offset, where: $where, order_by: {created_at: desc}) {
+    description
+    log_date
+    name
+    manifest {
+      manifest_no
+    }
+  }
+}

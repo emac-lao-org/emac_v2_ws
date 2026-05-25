@@ -1,0 +1,5 @@
+mutation approveWasteCat($id: uuid = "",$status: Int) {
+  update_emac_catalogs(where: {id: {_eq: $id}}, _set: {status: $status}) {
+    affected_rows
+  }
+}

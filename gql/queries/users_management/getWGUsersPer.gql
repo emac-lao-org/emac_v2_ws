@@ -1,0 +1,12 @@
+query getWGUsersPer($id: uuid) {
+  emac_generators(order_by: {created_at: desc},where: {id: {_eq: $id}}) {
+    wg_users {
+      id
+      generator_id
+      name
+      tel
+      verification_status
+      email
+    }
+  }
+}

@@ -1,0 +1,7 @@
+mutation delete_wt_type_op($tran_id: uuid) {
+  delete_emac_type_operations(where: {tran_id: {_eq: $tran_id}}) {
+    returning {
+      updated_at
+    }
+  }
+}

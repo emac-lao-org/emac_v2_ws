@@ -1,0 +1,15 @@
+query getWTVehiclePer($id: uuid) {
+  emac_transporters(where: { id: { _eq: $id } }) {
+    vehicles {
+      color
+      contrainer
+      gps_no
+      id
+      license
+      note
+      registration_plate
+      status
+      vehicle_model
+    }
+  }
+}

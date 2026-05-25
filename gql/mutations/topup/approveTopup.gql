@@ -1,0 +1,5 @@
+mutation approveTopup($id: uuid = "", $ws_approve: String = "") {
+  update_emac_topup_requests(where: {id: {_eq: $id}}, _set: {ws_approve: $ws_approve, status: 1}) {
+    affected_rows
+  }
+}

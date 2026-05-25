@@ -1,0 +1,7 @@
+mutation deleteStorage($id: uuid = "") {
+  delete_emac_storages(where: {id: {_eq: $id}}) {
+    returning {
+      updated_at
+    }
+  }
+}

@@ -1,0 +1,12 @@
+mutation delete_wd_type_op($id: uuid = "") {
+  delete_emac_disposal_type_operations(where: {dis_id: {_eq: $id}}) {
+    returning {
+      updated_at
+    }
+  }
+  delete_emac_disposal_type_service_operations(where: {disposal_id: {_eq: $id}}) {
+    returning {
+      updated_at
+    }
+  }
+}

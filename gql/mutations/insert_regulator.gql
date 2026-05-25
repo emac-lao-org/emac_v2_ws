@@ -1,0 +1,29 @@
+mutation insert_regulator(
+  $custom_address: String = ""
+  $emac_id: String = ""
+  $email: String = ""
+  $latlng: String = ""
+  $level_opt_id: uuid = ""
+  $regulator_name: String = ""
+  $regulator_name_lo: String = ""
+  $status: Int
+  $tel: String
+  $vill_id: Int 
+) {
+  insert_emac_regulators(
+    objects: {
+      custom_address: $custom_address
+      emac_id: $emac_id
+      email: $email
+      latlng: $latlng
+      level_opt_id: $level_opt_id
+      regulator_name: $regulator_name
+      regulator_name_lo: $regulator_name_lo
+      status: $status
+      tel: $tel
+      vill_id: $vill_id
+    }
+  ) {
+    affected_rows
+  }
+}

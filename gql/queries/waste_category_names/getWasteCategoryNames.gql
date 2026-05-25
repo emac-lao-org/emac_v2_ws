@@ -1,0 +1,63 @@
+query getWasteCategoryNames(
+  $where: emac_waste_category_names_bool_exp = {}
+) {
+  emac_waste_category_names(
+    where: $where
+    order_by: [{ status: asc }, { updated_at: desc }, { created_at: desc }]
+  ) {
+    id
+    name
+    status
+    created_at
+    updated_at
+    waste_cat_id
+    requested_by_generator_id
+    approved_by_user_id
+    waste_category {
+      id
+      code
+      entry_type
+      description_6
+      description_6_lo
+    }
+    requested_generator {
+      id
+      gen_name
+      gen_name_lo
+      emac_id
+    }
+    approved_by_user {
+      id
+      name
+      email
+    }
+  }
+}
+
+query getPendingWasteCategoryNameRequests {
+  emac_waste_category_names(
+    where: { status: { _eq: 0 } }
+    order_by: { created_at: desc }
+  ) {
+    id
+    name
+    status
+    created_at
+    updated_at
+    waste_cat_id
+    requested_by_generator_id
+    waste_category {
+      id
+      code
+      entry_type
+      description_6
+      description_6_lo
+    }
+    requested_generator {
+      id
+      gen_name
+      gen_name_lo
+      emac_id
+    }
+  }
+}

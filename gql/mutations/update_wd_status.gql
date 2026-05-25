@@ -1,0 +1,10 @@
+mutation update_statusWD($id: uuid = "", $status: Int = 3,) {
+  update_emac_disposals(where: {id: {_eq: $id}}, _set: {status: $status}) {
+    returning {
+      updated_at
+    }
+  }
+  update_emac_wd_users(_set: {verification_status: 2}, where: {disposal_id: {_eq: $id}}) {
+    affected_rows
+  }
+}

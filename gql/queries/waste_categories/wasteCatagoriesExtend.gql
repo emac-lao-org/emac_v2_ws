@@ -1,0 +1,211 @@
+subscription wasteCatagoriesExtendSub($status: Int) {
+  emac_catalog_operations(where: { status: { _eq: $status } }) {
+    cat_name
+    cat_id
+    cat_date
+    created_at
+    custom_description
+    expire_date 
+    id
+    penalize_stt
+    quota_amount
+    remaining_amount
+    status
+    summary_amount
+    waste_cat_id
+    waste_category {
+      code
+      entry_type
+    }
+    extension_operations {
+      extended_type
+      extented_time
+      generator {
+        gen_name_lo
+        emac_id
+        id
+        gen_name
+      }
+      id
+      quota_extended
+      time_extended
+    }
+    catalog {
+      generator {
+        gen_name
+        emac_id
+        gen_name_lo
+        id
+      }
+    }
+  }
+}
+
+query wasteCatagoriesTimeExtend($status: Int = 3) {
+  emac_catalog_operations(
+    where: { extension_operations: { status: { _eq: $status } } }
+  ) {
+    cat_name
+    cat_id
+    cat_date
+    created_at
+    updated_at
+    custom_description
+    expire_date
+    id
+    penalize_stt
+    quota_amount
+    remaining_amount
+    status
+    summary_amount
+    waste_cat_id
+    waste_category {
+      code
+      entry_type
+    }
+    extension_operations(
+      where: {
+        extended_type: { _eq: "Time extended" }
+        _and: { status: { _eq: $status } }
+      }
+      order_by: { created_at: desc }
+    ) {
+      extended_type
+      extented_time
+      comment
+      generator {
+        gen_name_lo
+        emac_id
+        id
+        gen_name
+        extension_operations {
+          cat_opt_id
+          created_at
+          extended_type
+          extented_time
+          generator_id
+          id
+          old_date
+          old_quota
+          quota_extended
+          status
+          time_extended
+          updated_at
+        }
+      }
+      id
+      quota_extended
+      time_extended
+      created_at
+      updated_at
+    }
+    catalog {
+      generator {
+        gen_name
+        gen_name_lo
+        id
+      }
+    }
+  }
+}
+query wasteCatagoriesTimeQuotaExtend($status: Int = 5) {
+  emac_catalog_operations(
+    where: { extension_operations: { status: { _eq: $status } } }
+  ) {
+    cat_name
+    cat_id
+    cat_date
+    created_at
+    custom_description
+    expire_date
+    id
+    penalize_stt
+    quota_amount
+    remaining_amount
+    status
+    summary_amount
+    waste_cat_id
+    waste_category {
+      code
+      entry_type
+    }
+    extension_operations(
+      where: {
+        extended_type: { _eq: "Quota extended" }
+        _and: { status: { _eq: $status } }
+      }
+      order_by: { created_at: desc }
+    ) {
+      extended_type
+      extented_time
+      generator {
+        gen_name_lo
+        emac_id
+        id
+        gen_name
+      }
+      id
+      quota_extended
+      time_extended
+      created_at
+      updated_at
+      comment
+      catalog_operation {
+        custom_description
+      }
+    }
+    catalog {
+      generator {
+        gen_name
+        emac_id
+        gen_name_lo
+        id
+      }
+    }
+  }
+}
+
+query wasteCatagoriesExtend($status: Int) {
+  emac_catalog_operations(where: { status: { _eq: $status } }) {
+    cat_name
+    cat_id
+    cat_date
+    created_at
+    custom_description
+    expire_date
+    id
+    penalize_stt
+    quota_amount
+    remaining_amount
+    status
+    summary_amount
+    waste_cat_id
+    waste_category {
+      code
+      entry_type
+    }
+    extension_operations {
+      created_at
+      updated_at
+      extended_type
+      extented_time
+      generator {
+        gen_name_lo
+        emac_id
+        id
+        gen_name
+      }
+      id
+      quota_extended
+      time_extended
+    }
+    catalog {
+      generator {
+        gen_name
+        emac_id
+        gen_name_lo
+        id
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+mutation update_wr(
+  $id: uuid = ""
+  $email: String = ""
+  $custom_address: String = ""
+  $regulator_name: String = ""
+  $regulator_name_lo: String = ""
+  $status: Int = 1
+  $tel: String = ""
+) {
+  update_emac_regulators(
+    where: { id: { _eq: $id } }
+    _set: {
+      email: $email
+      custom_address: $custom_address
+      regulator_name: $regulator_name
+      regulator_name_lo: $regulator_name_lo
+      status: $status
+      tel: $tel
+    }
+  ) {
+    returning {
+      updated_at
+    }
+  }
+}

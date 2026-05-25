@@ -1,0 +1,16 @@
+
+mutation deleteVehiclePer(
+  $id: uuid = ""
+  $status: Int = 2
+) {
+  update_emac_vehicles(
+    where: { id: { _eq: $id } }
+    _set: {
+      status: $status
+    }
+  ) {
+    returning {
+      updated_at
+    }
+  }
+}

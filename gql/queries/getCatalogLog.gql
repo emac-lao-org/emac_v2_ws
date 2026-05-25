@@ -1,0 +1,13 @@
+query getCatalogLog {
+  emac_catalog_logs(order_by: {created_at: desc}) {
+    created_at
+    description
+    id
+    log_date
+    log_name
+    updated_at
+    catalog_operation {
+      cat_name
+    }
+  }
+}

@@ -1,0 +1,7 @@
+mutation delete_r_d_code($id: uuid) {
+  delete_emac_r_d_code(where: { id: { _eq: $id } }) {
+    returning {
+      id
+    }
+  }
+}

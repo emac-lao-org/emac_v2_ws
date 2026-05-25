@@ -1,0 +1,51 @@
+query getUserInfoManifest($id: uuid!) {
+  manifest: emac_manifests(where: {id: {_eq: $id}}) {
+    id
+    manifest_no
+    wt_stt
+    wr_stt
+    wg_stt
+    wd_stt
+    wt: transporter_operations {
+      wt_status
+      user_name
+      updated_at
+      wtUserByWtUser {
+        name
+        email
+        tel
+      }
+    }
+    wr: wrUserByWrUser {
+      name
+      updated_at
+      regulator {
+        emac_id
+      }
+    }
+    wsCertifyUserByWsCertifyUser {
+      name
+      email
+      updated_at
+    }
+    wg: wgUserByWgUser {
+      name
+      email
+      updated_at
+      tel
+    }
+    wd: wdUserByWdUser {
+      name
+      email
+      updated_at
+      tel
+    }
+    qr_codes {
+      wr_date
+      ws_certify_date
+      wt_date
+      wd_date
+      created_at
+    }
+  }
+}

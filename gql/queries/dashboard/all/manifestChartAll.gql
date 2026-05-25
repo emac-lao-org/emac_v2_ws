@@ -1,0 +1,129 @@
+query manifestChartAllDraft($from: timestamptz!, $to: timestamptz!) {
+  emac_manifests(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to}, wg_stt: {_eq: 0}, wd_stt: {_eq: 0}, wr_stt: {_eq: 0}, wt_stt: {_eq: 0}}) {
+    wd_stt
+    wg_stt
+    wr_stt
+    wt_stt
+    manifest_no
+  }
+  emac_manifests_aggregate(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to},wg_stt: {_eq: 0}, wr_stt: {_eq: 0}, wt_stt: {_eq: 0}, wd_stt: {_eq: 0}}) {
+    aggregate {
+      count(columns: manifest_no)
+    }
+  }
+}
+
+query manifestChartAllRequested($from: timestamptz!, $to: timestamptz!) {
+  emac_manifests(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to}, wg_stt: {_in: [1]}, wd_stt: {_eq: 0}, wr_stt: {_eq: 0}, wt_stt: {_in: [0,1]}}) {
+    wg_stt
+    wt_stt
+    wd_stt
+    wr_stt
+    manifest_no
+  }
+  emac_manifests_aggregate(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to},wg_stt: {_in: [1]}, wd_stt: {_eq: 0}, wr_stt: {_eq: 0}, wt_stt: {_in: [0,1]}}) {
+    aggregate {
+      count(columns: manifest_no)
+    }
+  }
+}
+
+query manifestChartAllReady($from: timestamptz!, $to: timestamptz!) {
+  emac_manifests(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to}, wg_stt: {_in: [1]}, wd_stt: {_eq: 1}, wr_stt: {_eq: 0}, wt_stt: {_in: [1]}}) {
+    wg_stt
+    wt_stt
+    wd_stt
+    wr_stt
+    manifest_no
+  }
+  emac_manifests_aggregate(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to},wg_stt: {_in: [1]}, wd_stt: {_eq: 1}, wr_stt: {_eq: 0}, wt_stt: {_in: [1]}}) {
+    aggregate {
+      count(columns: manifest_no)
+    }
+  }
+}
+
+query manifestChartAllProcess($from: timestamptz!, $to: timestamptz!) {
+  emac_manifests(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to}, wg_stt: {_in: [2,3]}, wd_stt: {_in: [1,2]}, wr_stt: {_eq: 0}, wt_stt: {_in: [2,3]}}) {
+    wg_stt
+    wt_stt
+    wd_stt
+    wr_stt
+    manifest_no
+  }
+  emac_manifests_aggregate(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to},wg_stt: {_in: [2,3]}, wd_stt: {_in: [1,2]}, wr_stt: {_eq: 0}, wt_stt: {_in: [2,3]}}) {
+    aggregate {
+      count(columns: manifest_no)
+    }
+  }
+}
+
+query manifestChartAllCompleted($from: timestamptz!, $to: timestamptz!) {
+  emac_manifests(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to}, wg_stt: {_in: [3]}, wd_stt: {_in: [3]}, wr_stt: {_eq: 0}, wt_stt: {_in: [3]}}) {
+    wg_stt
+    wt_stt
+    wd_stt
+    wr_stt
+    manifest_no
+  }
+  emac_manifests_aggregate(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to}, wg_stt: {_in: [3]}, wd_stt: {_in: [3]}, wr_stt: {_eq: 0}, wt_stt: {_in: [3]}}) {
+    aggregate {
+      count(columns: manifest_no)
+    }
+  }
+}
+
+query manifestChartAllCertifield($from: timestamptz!, $to: timestamptz!) {
+  emac_manifests(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to}, wg_stt: {_in: [3]}, wd_stt: {_in: [3]}, wr_stt: {_eq: 1}, wt_stt: {_in: [3]}}) {
+    wg_stt
+    wt_stt
+    wd_stt
+    wr_stt
+    manifest_no
+  }
+  emac_manifests_aggregate(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to},wg_stt: {_in: [3]}, wd_stt: {_in: [3]}, wr_stt: {_eq: 1}, wt_stt: {_in: [3]}}) {
+    aggregate {
+      count(columns: manifest_no)
+    }
+  }
+}
+
+query manifestChartAllRejected($from: timestamptz!, $to: timestamptz!) {
+  emac_manifests(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to},  
+    wg_stt: {_in: [100]}, 
+      wt_stt: {_in: [0,10, 20]}, 
+      wd_stt: {_in: [0,10, 20]}, 
+      wr_stt: {_eq: 0}}
+      ) {
+    wg_stt
+    wt_stt
+    wd_stt
+    wr_stt
+    manifest_no
+  }
+  emac_manifests_aggregate(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to},  
+    wg_stt: {_in: [100]}, 
+      wt_stt: {_in: [0,10, 20]}, 
+      wd_stt: {_in: [0,10, 20]}, 
+      wr_stt: {_eq: 0}}) {
+    aggregate {
+      count(columns: manifest_no)
+    }
+  }
+}
+
+query manifestChartAllExpired($from: timestamptz!, $to: timestamptz!) {
+  emac_manifests(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to}, wg_stt: {_in: [1]}, wd_stt: {_in: [1]}, wr_stt: {_eq: 0}, wt_stt: {_in: [100]}}) {
+    wg_stt
+    wt_stt
+    wd_stt
+    wr_stt
+    manifest_no
+  }
+  emac_manifests_aggregate(where: {_and: {created_at: {_gte: $from}}, created_at: {_lte: $to}, wg_stt: {_in: [1]}, wd_stt: {_in: [1]}, wr_stt: {_eq: 0}, wt_stt: {_in: [100]}}) {
+    aggregate {
+      count(columns: manifest_no)
+    }
+  }
+}
+

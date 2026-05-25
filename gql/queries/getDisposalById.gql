@@ -1,0 +1,58 @@
+query getDisposalById($id: uuid) {
+  emac_disposals(where: {id: {_eq: $id}}) {
+    dis_name
+    dis_name_lo
+    custom_address
+    emac_id
+    email
+    id
+    latlng
+    license_no
+    status
+    tel
+    enterprise_no
+    levelByLevel {
+      id
+      level_name
+      level_name_lo
+    }
+    village {
+      vill_id
+      vill_name
+      vill_name_lo
+      district {
+        dr_id
+        dr_name
+        dr_name_lo
+        province {
+          pr_id
+          pr_name
+          pr_name_lo
+        }
+      }
+    }
+    disposal_type_operations {
+      type_of_service {
+        name
+        name_short
+        note
+        id
+      }
+    }
+    disposal_type_service_operations {
+      type_id
+      disposal_id
+      type_of_disposal_service {
+        name
+        name_eng
+      }
+    }
+    wd_users {
+      id
+    }
+    disposal_facilities {
+      id
+    }
+    
+  }
+}

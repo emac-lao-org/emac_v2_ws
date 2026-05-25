@@ -1,0 +1,17 @@
+mutation certifyManifest(
+  $id: uuid!
+  $wr_stt: Int = 1
+  $ws_certify_user: String
+) {
+  update_emac_manifests(
+    where: { id: { _eq: $id } }
+    _set: { wr_stt: $wr_stt, ws_certify_user: $ws_certify_user }
+  ) {
+    affected_rows
+    returning {
+      id
+      wr_stt
+      ws_certify_user
+    }
+  }
+}

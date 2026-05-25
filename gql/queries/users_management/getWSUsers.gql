@@ -1,0 +1,31 @@
+query getWSUsersCount($where: emac_users_bool_exp!) {
+  emac_users_aggregate(where: $where) { aggregate { count } }
+}
+
+query getWSUsersGlobalCount {
+  active: emac_users_aggregate(where: {verification_status: {_eq: 1}}) { aggregate { count } }
+  suspended: emac_users_aggregate(where: {verification_status: {_eq: 2}}) { aggregate { count } }
+  deleted: emac_users_aggregate(where: {verification_status: {_eq: 3}}) { aggregate { count } }
+  total: emac_users_aggregate { aggregate { count } }
+}
+
+query getWSUsers($limit: Int!, $offset: Int!, $where: emac_users_bool_exp!) {
+  emac_users(limit: $limit, offset: $offset, where: $where, order_by: {created_at: desc}) {
+    id
+    tel
+    name
+    email
+    verification_status
+    can_certify_manifest
+    is_main_ws
+    emc_id
+  }
+}
+
+query getCurrentWSUserCertifyPermission($id: String!) {
+  emac_users_by_pk(id: $id) {
+    id
+    can_certify_manifest
+    is_main_ws
+  }
+}

@@ -1,0 +1,307 @@
+query getWasteCatalog {
+  emac_catalogs(where: {status: {_neq: 0}}) {
+    name
+    id
+    status
+    created_at
+    generator {
+      emac_id
+      gen_name_lo
+      gen_name
+    }
+    type_of_service {
+      name_short
+      name
+      id
+    }
+    catalog_operations_aggregate {
+      aggregate {
+        sum {
+          quota_amount
+        }
+      }
+    }
+  }
+}
+query getWasteCatalogById($id: uuid = "") {
+  emac_catalogs(where: {id: {_eq: $id}}) {
+    name
+    id
+    status
+    generator {
+      emac_id
+      gen_name_lo
+      gen_name
+      id
+    }
+    type_of_service {
+      name_short
+      name
+      id
+    }
+    catalog_no
+    created_at
+    description
+    expire_date
+    catalog_wd_operations {
+      disposal {
+        id
+        dis_name_lo
+        dis_name
+        emac_id
+        email
+        license_no
+        custom_address
+    enterprise_no
+        tel
+        disposal_type_operations {
+          type_of_service {
+            name_short
+            name
+            id
+          }
+        }
+        disposal_type_service_operations {
+          type_of_disposal_service {
+            id
+            name
+            name_eng
+          }
+        }
+      }
+    }
+    catalog_wt_operations {
+      id
+      transporter {
+        tran_name_lo
+        tran_name
+        tel
+        status
+        id
+        enterprise_no
+        email
+        emac_id
+        type_operations {
+          type_of_service {
+            id
+            name
+            name_short
+          }
+        }
+        custom_address
+      }
+    }
+    catalog_operations(where: {status: {_neq: 8}}) {
+      remaining_amount
+      quota_amount
+      cat_id
+      cat_name
+      cat_date
+      status
+      expire_date
+      custom_description
+      penalize_stt
+      summary_amount
+      waste_category {
+        updated_at
+        code
+        entry_type
+        id
+      }
+    }
+    catalog_operations_aggregate(where: {status: {_neq: 8}}) {
+      aggregate {
+        sum {
+          quota_amount
+          remaining_amount
+        }
+      }
+    }
+  }
+}
+
+query getWasteCatalogN($status: Int = 0) {
+  emac_catalogs(where: {status: {_eq: $status}}) {
+    name
+    id
+    status
+    generator {
+      emac_id
+      gen_name_lo
+      gen_name
+      id
+    }
+    type_of_service {
+      name_short
+      name
+      id
+    }
+    catalog_no
+    created_at
+    description
+    expire_date
+    catalog_wd_operations {
+      disposal {
+        dis_name_lo
+        dis_name
+        emac_id
+        email
+        enterprise_no
+        tel
+        disposal_type_operations {
+          type_of_service {
+            name_short
+            name
+            id
+          }
+        }
+        disposal_type_service_operations {
+          type_of_disposal_service {
+            id
+            name
+            name_eng
+          }
+        }
+      }
+    }
+    catalog_wt_operations {
+      id
+      transporter {
+        tran_name_lo
+        tran_name
+        tel
+        status
+        id
+        enterprise_no
+        email
+        emac_id
+        type_operations {
+          type_of_service {
+            id
+            name
+            name_short
+          }
+        }
+      }
+    }
+    catalog_operations(where: {status: {_neq: 8}}) {
+      remaining_amount
+      quota_amount
+      cat_id
+      cat_name
+      cat_date
+      status
+      expire_date
+      custom_description
+      penalize_stt
+      summary_amount
+      waste_category {
+        updated_at
+        code
+        entry_type
+        id
+      }
+    }
+    catalog_operations_aggregate(where: {status: {_neq: 8}}) {
+      aggregate {
+        sum {
+          quota_amount
+          remaining_amount
+        }
+      }
+    }
+  }
+}
+
+query getWasteCatalogByStatus($status: Int) {
+  emac_catalogs(where: {status: {_eq: $status}}) {
+    name
+    id
+    status
+    generator {
+      emac_id
+      gen_name_lo
+      gen_name
+      id
+    }
+    type_of_service {
+      name_short
+      name
+      id
+    }
+    catalog_no
+    created_at
+    description
+    expire_date
+    catalog_wd_operations {
+      disposal {
+        dis_name_lo
+        dis_name
+        emac_id
+        email
+        enterprise_no
+        tel
+        disposal_type_operations {
+          type_of_service {
+            name_short
+            name
+            id
+          }
+        }
+        disposal_type_service_operations {
+          type_of_disposal_service {
+            id
+            name
+            name_eng
+          }
+        }
+      }
+    }
+    catalog_wt_operations {
+      id
+      transporter {
+        tran_name_lo
+        tran_name
+        tel
+        status
+        id
+        enterprise_no
+        email
+        emac_id
+        type_operations {
+          type_of_service {
+            id
+            name
+            name_short
+          }
+        }
+      }
+    }
+    catalog_operations(where: {status: {_neq: 8}}) {
+      remaining_amount
+      quota_amount
+      cat_id
+      cat_name
+      cat_date
+      status
+      expire_date
+      custom_description
+      penalize_stt
+      summary_amount
+      waste_category {
+        updated_at
+        code
+        entry_type
+        id
+      }
+    }
+    catalog_operations_aggregate(where: {status: {_neq: 8}}) {
+      aggregate {
+        sum {
+          quota_amount
+          remaining_amount
+        }
+      }
+    }
+  }
+}

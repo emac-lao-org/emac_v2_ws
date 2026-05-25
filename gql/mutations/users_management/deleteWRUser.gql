@@ -1,0 +1,7 @@
+mutation deleteWRUser($id: String, $verification_status: Int = 3) {
+  update_emac_wr_users(where: {id: {_eq: $id}}, _set: { verification_status: $verification_status}) {
+    returning {
+      updated_at
+    }
+  }
+}

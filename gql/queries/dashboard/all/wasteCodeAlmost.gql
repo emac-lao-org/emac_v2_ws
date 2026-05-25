@@ -1,0 +1,11 @@
+query mostCreateWasteCode($from: date!, $to: date!) {
+  get_sum_create_waste(
+    where: { _and: { date: { _gte: $from } }, date: { _lte: $to } }
+  ) {
+    code
+    entry_type
+    id
+    total
+    date
+  }
+}

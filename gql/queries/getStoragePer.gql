@@ -1,0 +1,15 @@
+query storagePer($id: uuid = "") {
+  emac_generators(where: {id: {_eq: $id}}) {
+    storages {
+      area
+      id
+      note
+      quantity
+      status
+      storage_name
+      facility_operations {
+        description
+      }
+    }
+  }
+}

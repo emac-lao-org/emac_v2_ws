@@ -1,0 +1,6 @@
+query users {
+  emac_users {
+    name
+    email
+  }
+}

@@ -1,0 +1,22 @@
+query userChartAll {
+  emac_wg_users_aggregate {
+    aggregate {
+      count(columns: id)
+    }
+  }
+  emac_wt_users_aggregate {
+    aggregate {
+      count(columns: id)
+    }
+  }
+  emac_wd_users_aggregate {
+    aggregate {
+      count(columns: id)
+    }
+  }
+  emac_wr_users_aggregate {
+    aggregate {
+      count(columns: id)
+    }
+  }
+}

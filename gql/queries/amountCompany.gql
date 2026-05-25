@@ -1,0 +1,14 @@
+query amount {
+  emac_disposals(where: {status: {_neq: 4}}) {
+    id
+  }
+  emac_transporters(where: {status: {_neq: 4}}) {
+    id
+  }
+  emac_generators(where: {status: {_neq: 4}}) {
+    id
+  }
+  emac_regulators(where: {status: {_neq: 4}}) {
+    id
+  }
+}

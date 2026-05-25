@@ -1,0 +1,15 @@
+query createWaste($type: String, $from: date!, $to: date!) {
+  getdisposalsumtypev2(
+    where: {
+      _and: { manifest_date: { _gte: $from } }
+      manifest_date: { _lte: $to }
+      type: { _eq: $type }
+    }
+    order_by: { manifest_date: asc }
+  ) {
+    id
+    manifest_date
+    weight_sum
+    type
+  }
+}

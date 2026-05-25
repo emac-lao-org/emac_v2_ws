@@ -1,0 +1,25 @@
+query getWasteCategories {
+  emac_waste_categories(order_by: {code: asc}) {
+    code
+    description_2
+    description_4
+    description_6
+    description_6_lo
+    entry_type
+    id
+  }
+}
+
+
+query getWasteCategoriesWithHz {
+  emac_waste_categories(order_by: {code: asc}, where: {entry_type: {_eq: "Hz"}}) {
+    id
+  }
+}
+
+
+query getWasteCategoriesWithNHz {
+  emac_waste_categories(order_by: {code: asc}, where: {entry_type: {_neq: "Hz"}}) {
+    id
+  }
+}

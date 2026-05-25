@@ -1,0 +1,10 @@
+mutation update_statusWG($id: uuid = "", $status: Int = 3) {
+  update_emac_generators(where: {id: {_eq: $id}}, _set: {status: $status}) {
+    returning {
+      updated_at
+    }
+  }
+  update_emac_wg_users(where: {generator_id: {_eq: $id}}, _set: {verification_status: 2}) {
+    affected_rows
+  }
+}

@@ -1,0 +1,14 @@
+query getCustomAddress($id: Int) {
+  emac_villages(where: {vill_id: {_eq: $id}}) {
+    vill_name_lo
+    vill_id
+    district {
+      dr_name_lo
+      dr_id
+      province {
+        pr_name_lo
+        pr_id
+      }
+    }
+  }
+}

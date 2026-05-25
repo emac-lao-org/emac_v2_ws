@@ -1,0 +1,24 @@
+query getManifestCreateWasteCount($where: get_manifest_waste_code_bool_exp!) {
+  get_manifest_waste_code_aggregate(where: $where) { aggregate { count } }
+}
+
+query getManifestCreateWaste($limit: Int!, $offset: Int!, $where: get_manifest_waste_code_bool_exp!) {
+  get_manifest_waste_code(limit: $limit, offset: $offset, where: $where, order_by: { manifest_no: desc_nulls_last }) {
+    manifest_date
+    id
+    manifest_no
+    type
+    updated_at
+    waste_code
+    waste_description_6
+    waste_description_6_lo
+    waste_name
+    wd_name
+    wd_stt
+    weight_generator
+    weight_disposal
+    wg_name
+    wt_name
+  }
+}
+

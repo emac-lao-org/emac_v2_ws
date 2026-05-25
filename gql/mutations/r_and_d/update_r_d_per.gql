@@ -1,0 +1,5 @@
+mutation update_r_d_per($dis_fac_id: uuid, $r_d_code_id: uuid) {
+        insert_emac_disposal_facility_operations(objects: {dis_fac_id: $dis_fac_id, r_d_code_id: $r_d_code_id}) {
+          affected_rows
+        }
+      }

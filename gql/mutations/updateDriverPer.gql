@@ -1,0 +1,23 @@
+mutation updateDriverPer(
+  $id: uuid = ""
+  $drive_name: String = ""
+  $license: String = ""
+  $note: String = ""
+  $status: Int = 10
+  $tel: String = ""
+) {
+  update_emac_drivers(
+    where: { id: { _eq: $id } }
+    _set: {
+      drive_name: $drive_name
+      license: $license
+      note: $note
+      status: $status
+      tel: $tel
+    }
+  ) {
+    returning {
+      updated_at
+    }
+  }
+}

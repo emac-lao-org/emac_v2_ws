@@ -1,0 +1,10 @@
+query emac_r_d_code {
+  emac_r_d_code(order_by: {created_at: asc}) {
+    code
+    description
+    id
+    disposal_facility_operations {
+      dis_fac_id
+    }
+  }
+}

@@ -1,0 +1,32 @@
+query wasteCatagoriesExpire($expire_date: date = "") {
+  emac_catalog_operations(
+    where: { expire_date: { _gte: $expire_date }, status: { _in: [2, 4] } }
+  ) {
+    cat_name
+    cat_id
+    cat_date
+    created_at
+    custom_description
+    expire_date
+    id
+    penalize_stt
+    quota_amount
+    remaining_amount
+    # quota_extended
+    status
+    summary_amount
+    waste_cat_id
+    waste_category {
+      code
+      entry_type
+    }
+    catalog {
+      generator {
+        gen_name
+        emac_id
+        gen_name_lo
+        id
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+mutation insert_emac_transporters($tran_name: String = "", $tran_name_lo: String = "", $email: String = "", $emac_id: String = "", $custom_address: String = "", $tel: String = "", $status: Int, $enterprise_no: String, $vill_id: Int, $latlng: String, $type_id: uuid,) {
+  insert_emac_transporters(objects: {tran_name: $tran_name, tran_name_lo: $tran_name_lo, email: $email, emac_id: $emac_id, custom_address: $custom_address, tel: $tel, status: $status, enterprise_no: $enterprise_no, vill_id: $vill_id, latlng: $latlng, type_operations: {data: {type_id: $type_id}},}) {
+    affected_rows
+    returning {
+      id
+      created_at
+      enterprise_no
+      emac_id
+      email
+      tran_name
+      tran_name_lo
+      custom_address
+      vill_id
+      tel
+      status
+      latlng
+      type_operations {
+        type_id
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+mutation updateStatusWR($id: uuid = "", $status: Int = 3) {
+  update_emac_regulators(where: {id: {_eq: $id}}, _set: {status: $status}) {
+    returning {
+      updated_at
+    }
+  }
+  update_emac_wr_users(where: {regulator_id: {_eq: $id}}, _set: {verification_status: 2}) {
+    affected_rows
+  }
+}

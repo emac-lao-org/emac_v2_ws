@@ -1,0 +1,55 @@
+query getAllG($status: Int, $from: timestamptz!, $to: timestamptz!) {
+  emac_generators_aggregate(
+    where: {
+      _and: { created_at: { _gte: $from } }
+      created_at: { _lte: $to }
+      status: { _neq: $status }
+    }
+  ) {
+    aggregate {
+      count
+    }
+  }
+}
+
+query getAllD($status: Int, $from: timestamptz!, $to: timestamptz!) {
+  emac_disposals_aggregate(
+    where: {
+      _and: { created_at: { _gte: $from } }
+      created_at: { _lte: $to }
+      status: { _neq: $status }
+    }
+  ) {
+    aggregate {
+      count
+    }
+  }
+}
+
+query getAllT($status: Int, $from: timestamptz!, $to: timestamptz!) {
+  emac_transporters_aggregate(
+    where: {
+      _and: { created_at: { _gte: $from } }
+      created_at: { _lte: $to }
+      status: { _neq: $status }
+    }
+  ) {
+    aggregate {
+      count
+    }
+  }
+}
+
+query getAllR($status: Int, $from: timestamptz!, $to: timestamptz!) {
+  emac_regulators_aggregate(
+    where: {
+      _and: { created_at: { _gte: $from } }
+      created_at: { _lte: $to }
+      status: { _neq: $status }
+    }
+  ) {
+    aggregate {
+      count
+    }
+  }
+}

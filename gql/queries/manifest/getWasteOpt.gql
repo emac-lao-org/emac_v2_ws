@@ -1,0 +1,34 @@
+query getWasteOpt($id: uuid = "") {
+  emac_waste_operations(where: {manifest_id: {_eq: $id}}) {
+      weight_disposal
+      weight_generator
+      element {
+        name
+      }
+      quantity
+      unit
+      description
+      catalog_operation {
+        custom_description
+        waste_category {
+          description_2
+          description_4
+          description_6
+          code
+        }
+      }
+      r_d_code_operations {
+        r_d_code {
+          code
+        }
+      }
+      description
+      unit
+      weight_disposal
+      quantity
+      weight_generator
+      element {
+        name
+      }
+  }
+}

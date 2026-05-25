@@ -1,0 +1,5 @@
+mutation autoApproveWasteCatOpt($id: uuid = "", $status: Int) {
+  update_emac_catalog_operations(where: {cat_id: {_eq: $id}, status: {_eq: 0}}, _set: {status: $status}) {
+    affected_rows
+  }
+}

@@ -1,0 +1,10 @@
+query getDrivers($id: uuid = "") {
+  emac_drivers(where: { tran_id: { _eq: $id } }) {
+    tel
+    status
+    id
+    note
+    license
+    drive_name
+  }
+}

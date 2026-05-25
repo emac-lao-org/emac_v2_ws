@@ -1,0 +1,10 @@
+mutation updateWRUser($id: String = "", $tel: String = "", $name: String = "", $verification_status: Int) {
+  update_emac_wr_users(where: {id: {_eq: $id}}, _set: {tel: $tel, name: $name, verification_status: $verification_status}) {
+    returning {
+      updated_at
+    }
+  }
+}
+
+
+

@@ -1,0 +1,7 @@
+query waste_categories {
+  emac_waste_categories {
+    unit
+    name
+    id
+  }
+}

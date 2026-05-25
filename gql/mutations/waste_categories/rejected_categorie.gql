@@ -1,0 +1,5 @@
+mutation deleteWasteCategorieStt($id: uuid = "") {
+  update_emac_catalog_operations(where: {id: {_eq: $id}}, _set: {status: 9}) {
+    affected_rows
+  }
+}

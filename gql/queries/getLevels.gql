@@ -1,0 +1,18 @@
+query getLevels {
+  emac_levels {
+    level_name
+    level_name_lo
+    id
+    level_order
+  }
+}
+
+query getOrganize($id: uuid) {
+  emac_level_operations(where: {level_id: {_eq: $id}}) {
+    id
+    level_id
+    level_name
+    level_name_lo
+    level_order
+  }
+}

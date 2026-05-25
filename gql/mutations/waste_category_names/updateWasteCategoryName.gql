@@ -1,0 +1,15 @@
+mutation updateWasteCategoryName(
+  $id: uuid!
+  $name: String!
+) {
+  update_emac_waste_category_names(
+    where: { id: { _eq: $id } }
+    _set: { name: $name }
+  ) {
+    returning {
+      id
+      name
+      updated_at
+    }
+  }
+}

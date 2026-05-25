@@ -1,0 +1,5 @@
+mutation updateCatalogStt($id: uuid = "") {
+  update_emac_catalogs(where: {id: {_eq: $id}}, _set: {status: 5}) {
+    affected_rows
+  }
+}

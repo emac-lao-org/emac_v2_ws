@@ -1,0 +1,21 @@
+mutation insertWasteCat(
+  $code: String = ""
+  $description_2: String = ""
+  $description_4: String = ""
+  $description_6: String = ""
+  $entry_type: String = ""
+) {
+  insert_emac_waste_categories(
+    objects: {
+      code: $code
+      description_2: $description_2
+      description_4: $description_4
+      description_6: $description_6
+      entry_type: $entry_type
+    }
+  ) {
+    returning {
+      created_at
+    }
+  }
+}

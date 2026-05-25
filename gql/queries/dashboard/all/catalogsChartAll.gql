@@ -1,0 +1,25 @@
+query catalogsChartAll {
+  emac_catalogs_aggregate {
+    aggregate {
+      all:count(columns: type_id)
+    }
+  }
+}
+
+query catalogsChartAllHz {
+  emac_catalogs_aggregate(where: {type_id: {_eq: "c8763f98-321b-4622-b1ff-281a0b54e2f9"}}) {
+    aggregate {
+      Hz:count(columns: id)
+    }
+  }
+}
+
+query catalogsChartAllNHz {
+  emac_catalogs_aggregate(where: {type_id: {_eq: "7372727f-c0f0-4bae-81f3-47bad3f1012d"}}) {
+    aggregate {
+      NHz:count(columns: id)
+    }
+  }
+}
+
+

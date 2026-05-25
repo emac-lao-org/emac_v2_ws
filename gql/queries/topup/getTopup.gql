@@ -1,0 +1,34 @@
+
+query getTopup {
+  emac_topup_requests(where: {status: {_eq: 0}}) {
+    amount
+    created_at
+    approve_date
+    attachment
+    remark
+    id
+    request_date
+    status
+    wd_request
+    ws_approve
+    disposal_id
+    disposal {
+      dis_name
+      dis_name_lo
+      enterprise_no
+      email
+      emac_id
+      tel
+      village {
+        vill_name_lo
+        district {
+          dr_name_lo
+          province {
+            pr_name_lo
+          }
+        }
+      }
+    }
+    
+  }
+}

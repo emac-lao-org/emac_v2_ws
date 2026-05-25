@@ -1,0 +1,134 @@
+query getRegulator {
+  emac_regulators {
+    email
+    id
+    latlng
+    regulator_name
+    tel
+    regulator_name_lo
+    status
+    enterprise_no
+    custom_address
+    level_operation {
+      id
+      level_name
+      level_name_lo
+      level {
+        id
+        level_name
+        level_name_lo
+        level_order
+      }
+    }
+    village {
+      vill_id
+      vill_name
+      vill_name_lo
+      district {
+        dr_id
+        dr_name
+        dr_name_lo
+        province {
+          pr_id
+          pr_name
+          pr_name_lo
+        }
+      }
+    }
+  }
+}
+
+query getRegulatorById($id: uuid) {
+  emac_regulators(where: {id: {_eq: $id}}) {
+    email
+    id
+    latlng
+    regulator_name
+    tel
+    emac_id
+    regulator_name_lo
+    status
+    enterprise_no
+    custom_address
+    level_operation {
+      id
+      level_name
+      level_name_lo
+    }
+    village {
+      vill_id
+      vill_name
+      vill_name_lo
+      district {
+        dr_id
+        dr_name
+        dr_name_lo
+        province {
+          pr_id
+          pr_name
+          pr_name_lo
+        }
+      }
+    }
+    wr_users {
+      id
+    }
+  }
+}
+
+
+query getRegulatorNeqCount($where: emac_regulators_bool_exp!) {
+  emac_regulators_aggregate(where: $where) {
+    aggregate { count }
+  }
+}
+
+query getRegulatorNeq(
+  $limit: Int!
+  $offset: Int!
+  $where: emac_regulators_bool_exp!
+) {
+  emac_regulators(
+    limit: $limit
+    offset: $offset
+    where: $where
+    order_by: {created_at: desc}
+  ) {
+    email
+    id
+    latlng
+    regulator_name
+    tel
+    regulator_name_lo
+    status
+    enterprise_no
+    custom_address
+    emac_id
+    level_operation {
+      id
+      level_name
+      level_name_lo
+       level {
+        id
+        level_name
+        level_name_lo
+        level_order
+      }
+    }
+    village {
+      vill_id
+      vill_name
+      vill_name_lo
+      district {
+        dr_id
+        dr_name
+        dr_name_lo
+        province {
+          pr_id
+          pr_name
+          pr_name_lo
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+mutation updateVehiclePer(
+  $id: uuid = ""
+  $color: String = ""
+  $contrainer: String = ""
+  $gps_no: String = ""
+  $license: String = ""
+  $note: String = ""
+  $registration_plate: String = ""
+  $status: Int 
+  $vehicle_model: String = ""
+) {
+  update_emac_vehicles(
+    where: { id: { _eq: $id } }
+    _set: {
+      color: $color
+      contrainer: $contrainer
+      gps_no: $gps_no
+      license: $license
+      note: $note
+      status: $status
+      vehicle_model: $vehicle_model
+      registration_plate: $registration_plate
+    }
+  ) {
+    returning {
+      updated_at
+    }
+  }
+}

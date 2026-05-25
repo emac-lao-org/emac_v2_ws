@@ -1,0 +1,40 @@
+query catalogChartDraft {
+  emac_catalogs_aggregate(where: {status: {_eq: 0}}) {
+    aggregate {
+      count(columns: id)
+    }
+  }
+}
+
+query catalogChartActive {
+  emac_catalogs_aggregate(where: {status: {_eq: 1}}) {
+    aggregate {
+      count(columns: id)
+    }
+  }
+}
+
+query catalogChartSuspended {
+  emac_catalogs_aggregate(where: {status: {_eq: 2}}) {
+    aggregate {
+      count(columns: id)
+    }
+  }
+}
+
+
+query catalogChartExpired {
+  emac_catalogs_aggregate(where: {status: {_eq: 3}}) {
+    aggregate {
+      count(columns: id)
+    }
+  }
+}
+
+query catalogChartRejected {
+  emac_catalogs_aggregate(where: {status: {_eq: 5}}) {
+    aggregate {
+      count(columns: id)
+    }
+  }
+}

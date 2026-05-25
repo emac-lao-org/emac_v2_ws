@@ -1,0 +1,31 @@
+mutation update_wg(
+  $id: uuid = ""
+  $custom_address: String = ""
+  $gen_name: String = ""
+  $gen_name_lo: String = ""
+  $email: String = ""
+  $status: Int = 1
+  $tel: String = ""
+  $enterprise_no: String = ""
+  $industry_type_id: uuid = ""
+  $objectives: String = ""
+) {
+  update_emac_generators(
+    _set: {
+      custom_address: $custom_address
+      gen_name: $gen_name
+      gen_name_lo: $gen_name_lo
+      email: $email
+      status: $status
+      tel: $tel
+      enterprise_no: $enterprise_no
+      industry_type_id: $industry_type_id
+      objectives: $objectives
+    }
+    where: { id: { _eq: $id } }
+  ) {
+    returning {
+      updated_at
+    }
+  }
+}

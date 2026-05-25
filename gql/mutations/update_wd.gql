@@ -1,0 +1,27 @@
+mutation update_wd(
+  $id: uuid = ""
+  $custom_address: String = ""
+  $dis_name: String = ""
+  $dis_name_lo: String = ""
+  $email: String = ""
+  $license_no: String = ""
+  $status: Int = 1
+  $tel: String = ""
+) {
+  update_emac_disposals(
+    _set: {
+      custom_address: $custom_address
+      dis_name: $dis_name
+      dis_name_lo: $dis_name_lo
+      email: $email
+      license_no: $license_no
+      status: $status
+      tel: $tel
+    }
+    where: { id: { _eq: $id } }
+  ) {
+    returning {
+      updated_at
+    }
+  }
+}

@@ -1,0 +1,8 @@
+mutation insert_r_d_code($code: String = "", $description: String = "") {
+  insert_emac_r_d_code(objects: {code: $code, description: $description}) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}

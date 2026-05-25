@@ -1,0 +1,7 @@
+query getTypeofservices {
+  emac_type_of_services {
+    name
+    name_for_dis
+    id
+  }
+}

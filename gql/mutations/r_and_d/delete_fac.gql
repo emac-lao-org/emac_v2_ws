@@ -1,0 +1,5 @@
+mutation delete_fac($id: uuid = "",) {
+  delete_emac_disposal_facilities(where: {id: {_eq: $id}}) {
+    affected_rows
+  }
+}

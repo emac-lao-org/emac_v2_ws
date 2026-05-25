@@ -1,0 +1,54 @@
+query getTransportersById($id: uuid = "") {
+  emac_transporters(where: {id: {_eq: $id}}) {
+    id
+    tran_name
+    tran_name_lo
+    tel
+    enterprise_no
+    emac_id
+    status
+    email
+    latlng
+    custom_address
+    levelByLevel {
+      id
+      level_name
+      level_name_lo
+    }
+    village {
+      vill_name
+      vill_id
+      vill_name_lo
+      dr_id
+      district {
+        pr_id
+        dr_name
+        dr_name_lo
+        province {
+          pr_name
+          pr_name_lo
+          pr_id
+        }
+      }
+    }
+    type_operations {
+      id
+      type_id
+      tran_id
+      type_of_service {
+        name
+        name_short
+        note
+      }
+    }
+    wt_users {
+      id
+    }
+    vehicles {
+      id
+    }
+    drivers {
+      id
+    }
+  }
+}

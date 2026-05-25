@@ -1,0 +1,54 @@
+mutation insertDisposal(
+  $dis_name: String
+  $custom_address: String
+  $dis_name_lo: String
+  $emac_id: String
+  $email: String
+  $latlng: String
+  $license_no: String
+  $status: Int
+  $tel: String
+  $vill_id: Int
+  $type_id: uuid
+  $type_id1: uuid = ""
+  $enterprise_no: String = ""
+) {
+  insert_emac_disposals(
+    objects: {
+      custom_address: $custom_address
+      emac_id: $emac_id
+      email: $email
+      latlng: $latlng
+      license_no: $license_no
+      status: $status
+      tel: $tel
+      vill_id: $vill_id
+      dis_name: $dis_name
+      dis_name_lo: $dis_name_lo
+      disposal_type_operations: { data: { type_id: $type_id } }
+      disposal_type_service_operations: { data: { type_id: $type_id1 } }
+      enterprise_no: $enterprise_no
+    }
+  ) {
+    affected_rows
+    returning {
+      dis_name
+      dis_name_lo
+      custom_address
+      emac_id
+      email
+      id
+      latlng
+      license_no
+      status
+      tel
+      vill_id
+      disposal_type_operations {
+        type_id
+      }
+      disposal_type_service_operations {
+        type_id
+      }
+    }
+  }
+}

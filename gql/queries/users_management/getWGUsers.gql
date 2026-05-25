@@ -1,0 +1,29 @@
+query getWGUsersCount($where: emac_wg_users_bool_exp!) {
+  emac_wg_users_aggregate(where: $where) { aggregate { count } }
+}
+
+query getWGUsersGlobalCount {
+  active: emac_wg_users_aggregate(where: {verification_status: {_eq: 1}}) { aggregate { count } }
+  suspended: emac_wg_users_aggregate(where: {verification_status: {_eq: 2}}) { aggregate { count } }
+  deleted: emac_wg_users_aggregate(where: {verification_status: {_eq: 3}}) { aggregate { count } }
+  total: emac_wg_users_aggregate { aggregate { count } }
+}
+
+query getWGUsers($limit: Int!, $offset: Int!, $where: emac_wg_users_bool_exp!) {
+  emac_wg_users(limit: $limit, offset: $offset, where: $where, order_by: {created_at: desc}) {
+    id
+    tel
+    name
+    email
+    verification_status
+    generator {
+      email
+      emac_id
+      id
+      gen_name_lo
+      emac_id
+      gen_name
+      enterprise_no
+    }
+  }
+}

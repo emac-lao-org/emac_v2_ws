@@ -1,0 +1,12 @@
+query getWDUsersPer($id: uuid) {
+  emac_disposals(order_by: {created_at: desc} ,where: {id: {_eq: $id}}) {
+    wd_users {
+      name
+      tel
+      verification_status
+      email
+      id
+      disposal_id
+    }
+  }
+}

@@ -1,0 +1,21 @@
+query getManifestVehicle($id: uuid) {
+  emac_manifests(where: {id: {_eq: $id}}) {
+    transporter_operations(where: {manifest_id: {_eq: $id}}) {
+      driver {
+        drive_name
+        transporter_operations(where: {manifest_id: {_eq: $id}}) {
+          manifest {
+            security_seal
+          }
+        }
+      }
+      vehicle {
+        contrainer
+        gps_no
+        id
+        license
+        registration_plate
+      }
+    }
+  }
+}

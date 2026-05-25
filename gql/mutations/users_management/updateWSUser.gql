@@ -1,0 +1,23 @@
+mutation updateWSUser(
+  $id: String = ""
+  $tel: String = ""
+  $name: String = ""
+  $verification_status: Int
+  $can_certify_manifest: Boolean = false
+) {
+  update_emac_users(
+    where: {id: {_eq: $id}}
+    _set: {
+      tel: $tel
+      name: $name
+      verification_status: $verification_status
+      can_certify_manifest: $can_certify_manifest
+    }
+  ) {
+    returning {
+      updated_at
+    }
+  }
+}
+
+

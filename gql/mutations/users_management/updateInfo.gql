@@ -1,0 +1,5 @@
+mutation updateInfo($id: String = "", $name: String = "", $tel: String = "") {
+  update_emac_users(where: {id: {_eq: $id}}, _set: {name: $name, tel: $tel}) {
+    affected_rows
+  }
+}

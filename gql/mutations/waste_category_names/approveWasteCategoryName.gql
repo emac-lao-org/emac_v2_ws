@@ -1,0 +1,15 @@
+mutation approveWasteCategoryName(
+  $id: uuid!
+  $approved_by_user_id: String!
+) {
+  update_emac_waste_category_names(
+    where: { id: { _eq: $id } }
+    _set: { status: 1, approved_by_user_id: $approved_by_user_id }
+  ) {
+    returning {
+      id
+      status
+      approved_by_user_id
+    }
+  }
+}

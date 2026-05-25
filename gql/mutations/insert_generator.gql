@@ -1,0 +1,9 @@
+mutation insert_generator($level_id: uuid, $custom_address: String = "", $emac_id: String = "", $email: String = "", $enterprise_no: String = "", $gen_name: String = "", $gen_name_lo: String = "", $industry_type_id: uuid = "", $latlng: String = "", $tel: String = "", $vill_id: Int, $status: Int, $objectives: String = "") {
+  insert_emac_generators(objects: {level_id:$level_id,custom_address: $custom_address, emac_id: $emac_id, email: $email, enterprise_no: $enterprise_no, gen_name: $gen_name, gen_name_lo: $gen_name_lo, industry_type_id: $industry_type_id, latlng: $latlng, tel: $tel, vill_id: $vill_id, status: $status, objectives: $objectives}) {
+    affected_rows
+    returning {
+      created_at
+      id
+    }
+  }
+}

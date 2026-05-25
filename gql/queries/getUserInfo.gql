@@ -1,0 +1,9 @@
+query getUserInfo($uuid: String) {
+  emac_users(where: {id: {_eq: $uuid}}) {
+    name
+    email
+    tel
+    can_certify_manifest
+    is_main_ws
+  }
+}

@@ -1,0 +1,8 @@
+query getType_of_disposal_services {
+  emac_type_of_disposal_services(order_by: {last_code: asc}) {
+    id
+    name_eng
+    name
+    last_code
+  }
+}

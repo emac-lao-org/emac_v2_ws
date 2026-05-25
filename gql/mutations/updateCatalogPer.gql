@@ -1,0 +1,7 @@
+mutation updateCatalogPer($id: uuid = "", $description: String = "", $name: String = "", $status: Int) {
+  update_emac_catalogs(where: {id: {_eq: $id}}, _set: {description: $description, name: $name, status: $status}) {
+    returning {
+      updated_at
+    }
+  }
+}

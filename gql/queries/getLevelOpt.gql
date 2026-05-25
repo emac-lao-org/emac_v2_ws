@@ -1,0 +1,20 @@
+query getLevelOpt($id: uuid = "") {
+  emac_level_operations(where: {level_id: {_eq: $id}}) {
+    id
+    level_id
+    level_name
+    level_name_lo
+    level_order
+  }
+}
+
+
+query getLevelOptAll {
+  emac_level_operations {
+    id
+    level_id
+    level_name
+    level_name_lo
+    level_order
+  }
+}

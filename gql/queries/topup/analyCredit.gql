@@ -1,0 +1,20 @@
+query transactionsMonth($from: timestamptz!, $to: timestamptz!) {
+  emac_transactions(
+    where: { _and: { created_at: { _gte: $from } }, created_at: { _lte: $to } }
+  ) {
+    created_at
+    credit_amount
+  }
+  emac_transactions_aggregate(
+    where: { _and: 
+    { created_at: { _gte: $from } }, 
+    created_at: { _lte: $to } 
+    }
+  ) {
+    aggregate {
+      sum {
+        credit_amount
+      }
+    }
+  }
+}

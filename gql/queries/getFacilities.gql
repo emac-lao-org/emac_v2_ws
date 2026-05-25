@@ -1,0 +1,16 @@
+query getFacilities($id: uuid = "") {
+  emac_disposals(where: { id: { _eq: $id } }) {
+    disposal_facilities {
+      description
+      id
+      name
+      disposal_facility_operations {
+        r_d_code {
+          code
+          description
+          id
+        }
+      }
+    }
+  }
+}

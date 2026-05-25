@@ -1,0 +1,21 @@
+query getCatalog($id: uuid = "") {
+  emac_generators(where: {id: {_eq: $id}}) {
+    catalogs {
+      catalog_no
+      description
+      expire_date
+      name
+      id
+      status
+      generator {
+        gen_name
+        gen_name_lo
+        id
+      }
+      type_of_service {
+        name_short
+        name
+      }
+    }
+  }
+}

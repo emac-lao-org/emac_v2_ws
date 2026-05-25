@@ -1,0 +1,8 @@
+query getVillages($dr_id: Int) {
+  emac_districts(where: {dr_id: {_eq: $dr_id}}) {
+    villages {
+      vill_id
+      vill_name_lo
+    }
+  }
+}

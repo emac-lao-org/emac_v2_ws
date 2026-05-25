@@ -1,0 +1,7 @@
+mutation update_emac_r_d_code($id: uuid = "", $code: String = "", $description: String = "") {
+  update_emac_r_d_code(where: {id: {_eq: $id}}, _set: {code: $code, description: $description}) {
+    returning {
+      updated_at
+    }
+  }
+}

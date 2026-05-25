@@ -1,0 +1,12 @@
+query getWRUsersPer($id: uuid) {
+  emac_regulators(order_by: {created_at: desc},where: {id: {_eq: $id}}) {
+    wr_users {
+      name
+      tel
+      verification_status
+      email
+      id
+      regulator_id
+    }
+  }
+}

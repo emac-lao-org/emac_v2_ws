@@ -1,0 +1,5 @@
+mutation update_r_d_per_details($id: uuid = "", $name: String = "", $description: String = "") {
+  update_emac_disposal_facilities(_set: {name: $name, description: $description}, where: {disposal_facility_operations: {dis_fac_id: {_eq: $id}}}) {
+    affected_rows
+  }
+}

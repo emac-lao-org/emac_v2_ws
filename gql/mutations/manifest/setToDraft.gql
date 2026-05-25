@@ -1,0 +1,22 @@
+mutation setToDraft(
+  $id: uuid
+  $wg_stt: Int = 0
+  $ws_user: String
+  $wt_stt: Int = 0
+  $wt_status: Int = 0
+  $veh_id: uuid = null
+  $driver_id: uuid = null
+) {
+  update_emac_manifests(
+    where: { id: { _eq: $id } }
+    _set: { wg_stt: $wg_stt, ws_user: $ws_user, wt_stt: $wt_stt, wd_stt: 0 }
+  ) {
+    affected_rows
+  }
+  update_emac_transporter_operations(
+    where: { manifest_id: { _eq: $id } }
+    _set: { wt_status: $wt_status, veh_id: $veh_id, driver_id: $driver_id }
+  ) {
+    affected_rows
+  }
+}

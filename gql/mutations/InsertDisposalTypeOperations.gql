@@ -1,0 +1,8 @@
+mutation insert_disposal_type_operations($type_id1: uuid = "", $disposal_id: uuid = "") {
+  insert_emac_disposal_type_service_operations(objects: {type_id: $type_id1, disposal_id: $disposal_id}) {
+    returning {
+      disposal_id
+      type_id
+    }
+  }
+}

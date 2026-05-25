@@ -1,0 +1,10 @@
+query emac_transactions {
+  emac_transactions_aggregate {
+    aggregate {
+      sum {
+        debit_amount
+        credit_amount
+      }
+    }
+  }
+}

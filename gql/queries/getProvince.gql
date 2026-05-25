@@ -1,0 +1,25 @@
+query getProvince($is_special: Int = 0){
+  emac_provinces(where: {is_special: {_eq: $is_special}}){
+    pr_id
+    pr_name_lo
+    pr_code
+    last_code
+  }
+}
+
+query getPr_code($id: Int) {
+  emac_provinces(where: {pr_id: {_eq: $id}}) {
+    pr_code
+  }
+}
+
+query getSpecialPr($is_special: Int = 1) {
+  emac_provinces(where: {is_special: {_eq: $is_special}}) {
+    pr_code
+    pr_name_lo
+    pr_name
+    pr_id
+    last_code
+    is_special
+  }
+}

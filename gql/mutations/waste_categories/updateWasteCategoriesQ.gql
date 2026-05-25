@@ -1,0 +1,20 @@
+mutation updateWasteCategorieQ(
+  $id: uuid = ""
+  $extension_id: Int
+  $status: Int
+  $quota_amount: numeric
+  $remaining_amount: numeric
+) {
+  update_emac_catalog_operations(
+    where: { id: { _eq: $id } }
+    _set: { quota_amount: $quota_amount, remaining_amount: $remaining_amount }
+  ) {
+    affected_rows
+  }
+  update_emac_extension_operations(
+    where: { id: { _eq: $extension_id } }
+    _set: { status: $status }
+  ) {
+    affected_rows
+  }
+}

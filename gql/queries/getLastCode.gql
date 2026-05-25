@@ -1,0 +1,5 @@
+query getLastCode($id: Int) {
+  emac_provinces(where: { pr_id: { _eq: $id } }) {
+    last_code
+  }
+}

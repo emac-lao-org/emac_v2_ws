@@ -1,0 +1,51 @@
+mutation update_wt(
+  $custom_address: String
+  $email: String
+  $enterprise_no: String
+  $tran_name_lo: String
+  $tel: String
+  $tran_name: String
+  $status: Int = 1
+  $id: uuid
+) {
+  update_emac_transporters(
+    _set: {
+      custom_address: $custom_address
+      email: $email
+      enterprise_no: $enterprise_no
+      status: $status
+      tel: $tel
+      tran_name_lo: $tran_name_lo
+      tran_name: $tran_name
+      id: $id
+    }
+    where: { id: { _eq: $id } }
+  ) {
+    returning {
+      custom_address
+      emac_id
+      email
+      enterprise_no
+      id
+      latlng
+      created_at
+      status
+      tel
+      tran_name
+      tran_name_lo
+      type_operations {
+        type_id
+        tran_id
+        id
+      }
+      updated_at
+      village {
+        dr_id
+        vill_id
+        district {
+          pr_id
+        }
+      }
+    }
+  }
+}

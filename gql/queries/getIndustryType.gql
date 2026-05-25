@@ -1,0 +1,6 @@
+query getIndustryType {
+  emac_industry_types {
+    id
+    type_name
+  }
+}

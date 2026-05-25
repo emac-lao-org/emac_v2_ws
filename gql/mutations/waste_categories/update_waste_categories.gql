@@ -1,0 +1,23 @@
+mutation update_emac_waste_categories(
+  $id: uuid = ""
+  $code: String = ""
+  $description_2: String = ""
+  $description_4: String = ""
+  $description_6: String = ""
+  $entry_type: String = ""
+) {
+  update_emac_waste_categories(
+    where: { id: { _eq: $id } }
+    _set: {
+      code: $code
+      description_2: $description_2
+      description_4: $description_4
+      description_6: $description_6
+      entry_type: $entry_type
+    }
+  ) {
+    returning {
+      updated_at
+    }
+  }
+}

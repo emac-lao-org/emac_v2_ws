@@ -1,0 +1,15 @@
+mutation insertEMCS($id: String = "", $emc_id: String = "") {
+  update_emac_users(where: { id: { _eq: $id } }, _set: { emc_id: $emc_id }) {
+    affected_rows
+    returning {
+      verification_status
+      updated_at
+      tel
+      name
+      id
+      emc_id
+      email
+      created_at
+    }
+  }
+}

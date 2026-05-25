@@ -1,0 +1,117 @@
+query getDisposals {
+  emac_disposals {
+    dis_name
+    dis_name_lo
+    custom_address
+    emac_id
+    email
+    id
+    latlng
+    license_no
+    status
+    tel
+    levelByLevel {
+      id
+      level_name
+      level_name_lo
+    }
+    village {
+      vill_id
+      vill_name
+      vill_name_lo
+      district {
+        dr_id
+        dr_name
+        dr_name_lo
+        province {
+          pr_id
+          pr_name
+          pr_name_lo
+        }
+      }
+    }
+    disposal_type_operations {
+      type_of_service {
+        name
+        name_short
+        note
+        id
+      }
+    }
+    disposal_type_service_operations {
+      type_id
+      disposal_id
+      type_of_disposal_service {
+        name
+        name_eng
+      }
+    }
+  }
+}
+
+query getDisposalsNeqCount($where: emac_disposals_bool_exp!) {
+  emac_disposals_aggregate(where: $where) {
+    aggregate { count }
+  }
+}
+
+query getDisposalsNeq(
+  $limit: Int!
+  $offset: Int!
+  $where: emac_disposals_bool_exp!
+) {
+  emac_disposals(
+    limit: $limit
+    offset: $offset
+    where: $where
+    order_by: { created_at: desc }
+  ) {
+    dis_name
+    dis_name_lo
+    custom_address
+    emac_id
+    email
+    id
+    latlng
+    status
+    tel
+    license_no
+    enterprise_no
+    levelByLevel {
+      id
+      level_name
+      level_name_lo
+    }
+    village {
+      vill_id
+      vill_name
+      vill_name_lo
+      district {
+        dr_id
+        dr_name
+        dr_name_lo
+        province {
+          pr_id
+          pr_name
+          pr_name_lo
+        }
+      }
+    }
+    disposal_type_operations {
+      type_of_service {
+        name
+        name_short
+        note
+        id
+      }
+    }
+    disposal_type_service_operations {
+      type_id
+      disposal_id
+      type_of_disposal_service {
+        name
+        name_eng
+      }
+    }
+  }
+}

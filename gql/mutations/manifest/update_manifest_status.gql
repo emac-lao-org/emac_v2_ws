@@ -1,0 +1,7 @@
+mutation updateManifest($id: uuid, $wg_stt: Int, $ws_user: String = "", $message: String = "") {
+  update_emac_manifests(where: {id: {_eq: $id}}, _set: {wg_stt: $wg_stt, ws_user: $ws_user, message: $message}) {
+    returning {
+      created_at
+    }
+  }
+}

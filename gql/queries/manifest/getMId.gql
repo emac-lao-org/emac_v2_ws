@@ -1,0 +1,100 @@
+query getMId($id: uuid!) {
+  manifest: emac_manifests(where: {id: {_eq: $id}}) {
+    id
+    manifest_date
+    manifest_no
+    note
+    reference_number
+    status
+    security_seal
+    relocate_date
+    wt_stt
+    wr_stt
+    wg_stt
+    wd_stt
+    disposal {
+      custom_address
+      dis_name
+      dis_name_lo
+      emac_id
+      email
+      tel
+      vill_id
+      created_at
+      custom_address
+    }
+    type_of_service {
+      id
+      name
+      name_short
+    }
+    waste_operations {
+      weight_disposal
+      weight_generator
+      element {
+        name
+      }
+      quantity
+      unit
+      description
+      catalog_operation {
+        custom_description
+        waste_category {
+          description_2
+          description_4
+          description_6
+          code
+        }
+      }
+      r_d_code_operations {
+        r_d_code {
+          code
+        }
+      }
+      description
+      unit
+      weight_disposal
+      quantity
+      weight_generator
+      element {
+        name
+      }
+    }
+    transporter_operations(order_by: {created_at: asc}) {
+      wt_status
+      transporter {
+        custom_address
+        id
+        tran_name
+        tran_name_lo
+        tel
+        email
+        emac_id
+        vill_id
+      }
+      driver {
+        drive_name
+      }
+      vehicle {
+        contrainer
+        gps_no
+        registration_plate
+      }
+    }
+    wrUserByWrUser {
+      regulator {
+        emac_id
+      }
+    }
+  }
+  gen: emac_generators(where: {manifests: {id: {_eq: $id}}}) {
+    gen_name
+    emac_id
+    email
+    gen_name_lo
+    objectives
+    tel
+    vill_id
+    custom_address
+  }
+}

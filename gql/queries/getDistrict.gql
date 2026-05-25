@@ -1,0 +1,16 @@
+query getDistricts($pr_id: Int) {
+  emac_provinces(where: {pr_id: {_eq: $pr_id}}) {
+    districts {
+      dr_id
+      dr_name_lo
+    }
+  }
+}
+
+query getEditDistricts($dr_id: Int) {
+  emac_districts(where: {dr_id: {_eq: $dr_id}}) {
+    dr_id
+    dr_name
+    dr_name_lo
+  }
+}

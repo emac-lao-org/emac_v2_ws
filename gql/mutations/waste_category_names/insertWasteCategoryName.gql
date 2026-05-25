@@ -1,0 +1,18 @@
+mutation insertWasteCategoryName(
+  $waste_cat_id: uuid!
+  $name: String!
+  $approved_by_user_id: String
+) {
+  insert_emac_waste_category_names_one(
+    object: {
+      waste_cat_id: $waste_cat_id
+      name: $name
+      status: 1
+      approved_by_user_id: $approved_by_user_id
+    }
+  ) {
+    id
+    name
+    status
+  }
+}

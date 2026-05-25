@@ -1,0 +1,11 @@
+
+mutation update_emac_transporters($id: uuid = "", $status: Int = 3) {
+  update_emac_transporters(where: {id: {_eq: $id}}, _set: {status: $status}) {
+    returning {
+      updated_at
+    }
+  }
+  update_emac_wt_users(where: {transporter_id: {_eq: $id}}, _set: {verification_status: 2}) {
+    affected_rows
+  }
+}

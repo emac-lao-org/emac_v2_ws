@@ -1,0 +1,23 @@
+mutation updateStorage(
+  $id: uuid = ""
+  $area: numeric = ""
+  $note: String = ""
+  $quantity: numeric = ""
+  $status: Boolean = false
+  $storage_name: String = ""
+) {
+  update_emac_storages(
+    where: { id: { _eq: $id } }
+    _set: {
+      area: $area
+      note: $note
+      quantity: $quantity
+      status: $status
+      storage_name: $storage_name
+    }
+  ) {
+    returning {
+      updated_at
+    }
+  }
+}

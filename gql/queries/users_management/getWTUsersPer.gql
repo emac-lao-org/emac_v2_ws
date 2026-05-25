@@ -1,0 +1,12 @@
+query getWTUsersPer($id: uuid) {
+  emac_transporters(order_by: {created_at: desc},where: {id: {_eq: $id}}) {
+    wt_users {
+      name
+      tel
+      verification_status
+      email
+      id
+      transporter_id
+    }
+  }
+}

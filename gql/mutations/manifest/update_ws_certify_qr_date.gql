@@ -1,0 +1,16 @@
+mutation updateWsCertifyQrDate(
+  $manifest_id: uuid!
+  $ws_certify_date: timestamptz!
+) {
+  update_emac_qr_codes(
+    where: { manifest_id: { _eq: $manifest_id } }
+    _set: { ws_certify_date: $ws_certify_date }
+  ) {
+    affected_rows
+    returning {
+      id
+      manifest_id
+      ws_certify_date
+    }
+  }
+}

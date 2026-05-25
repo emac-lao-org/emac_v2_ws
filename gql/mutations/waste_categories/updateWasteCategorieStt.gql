@@ -1,0 +1,18 @@
+mutation updateWasteCategorieStt(
+  $status: Int
+  $expire_date: date = ""
+  $id: uuid = ""
+) {
+  update_emac_catalog_operations(
+    where: { id: { _eq: $id } }
+    _set: { expire_date: $expire_date, status: $status }
+  ) {
+    affected_rows
+  }
+  update_emac_extension_operations(
+    where: { cat_opt_id: { _eq: $id } }
+    _set: { status: $status }
+  ) {
+    affected_rows
+  }
+}

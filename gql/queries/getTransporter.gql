@@ -1,0 +1,154 @@
+query getTransporters {
+  emac_transporters {
+    id
+    tran_name
+    tran_name_lo
+    tel
+    enterprise_no
+    emac_id
+    status
+    email
+    latlng
+    custom_address
+        levelByLevel {
+      id
+      level_name
+      level_name_lo
+    }
+    village {
+      vill_name
+      vill_id
+      vill_name_lo
+      dr_id
+      district {
+        pr_id
+        dr_name
+        dr_name_lo
+        province {
+          pr_name
+          pr_name_lo
+          pr_id
+        }
+      }
+    }
+    type_operations {
+      id
+      type_id
+      tran_id
+      type_of_service {
+        name
+        name_short
+        note
+      }
+    }
+  }
+}
+
+
+query getTransportersNeqCount($where: emac_transporters_bool_exp!) {
+  emac_transporters_aggregate(where: $where) {
+    aggregate {
+      count
+    }
+  }
+}
+
+query getTransportersNeq(
+  $limit: Int!
+  $offset: Int!
+  $where: emac_transporters_bool_exp!
+) {
+  emac_transporters(
+    limit: $limit
+    offset: $offset
+    where: $where
+    order_by: { created_at: desc }
+  ) {
+    id
+    tran_name
+    tran_name_lo
+    tel
+    enterprise_no
+    emac_id
+    status
+    email
+    latlng
+    custom_address
+        levelByLevel {
+      id
+      level_name
+      level_name_lo
+    }
+    village {
+      vill_name
+      vill_id
+      vill_name_lo
+      dr_id
+      district {
+        pr_id
+        dr_name
+        dr_name_lo
+        province {
+          pr_name
+          pr_name_lo
+          pr_id
+        }
+      }
+    }
+    type_operations {
+      id
+      type_id
+      tran_id
+      type_of_service {
+        name
+        name_short
+        note
+      }
+    }
+  }
+}
+subscription getTransportersNeqSub($status:Int) {
+  emac_transporters(where: {status: {_neq: $status}},order_by: {created_at: desc}) {
+    id
+    tran_name
+    tran_name_lo
+    tel
+    enterprise_no
+    emac_id
+    status
+    email
+    latlng
+    custom_address
+        levelByLevel {
+      id
+      level_name
+      level_name_lo
+    }
+    village {
+      vill_name
+      vill_id
+      vill_name_lo
+      dr_id
+      district {
+        pr_id
+        dr_name
+        dr_name_lo
+        province {
+          pr_name
+          pr_name_lo
+          pr_id
+        }
+      }
+    }
+    type_operations {
+      id
+      type_id
+      tran_id
+      type_of_service {
+        name
+        name_short
+        note
+      }
+    }
+  }
+}
