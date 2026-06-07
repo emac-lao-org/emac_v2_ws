@@ -1,55 +1,3 @@
-subscription getManifestSub {
-  emac_manifests(where: {wg_stt: {_nin: [0]}}, order_by: {created_at: desc}) {
-    id
-    manifest_date
-    manifest_no
-    note
-    reference_number
-    status
-    wt_stt
-    wr_stt
-    wg_stt
-    wd_stt
-    message
-    security_seal
-    relocate_date
-    type_of_service {
-      id
-      name
-      name_short
-    }
-    transporter_operations {
-      transporter {
-        tran_name
-        tran_name_lo
-      }
-    }
-    generator {
-      gen_name
-      id
-      gen_name_lo
-      level {
-        level_name_lo
-        level_name
-        id
-      }
-    }
-    disposal {
-      dis_name
-      dis_name_lo
-    }
-    waste_operations_aggregate {
-      aggregate {
-        sum {
-          weight_disposal
-          weight_generator
-        }
-      }
-    }
-    expected_relocate_date
-  }
-}
-
 query getManifestSubQueryCount($where: emac_manifests_bool_exp!) {
   emac_manifests_aggregate(where: $where) {
     aggregate {
@@ -204,46 +152,6 @@ query getManifestApproveSub($limit: Int!, $offset: Int!, $where: emac_manifests_
   }
 }
 
-subscription getManifestCP {
-  emac_manifests(
-    where: {
-      wg_stt: { _eq: 3 }
-      wr_stt: { _in: [0,1] }
-      wt_stt: { _eq: 3 }
-      wd_stt: { _eq: 3 }
-    }
-  ) {
-    id
-    manifest_date
-    manifest_no
-    note
-    reference_number
-    status
-    security_seal
-    relocate_date
-    wt_stt
-    wr_stt
-    wg_stt
-    wd_stt
-    type_of_service {
-      id
-        name
-        name_short
-      }
-      transporter_operations {
-        transporter {
-          tran_name
-        }
-      }
-      generator {
-        gen_name
-      }
-      disposal {
-        dis_name
-      }
-    }
-}
-
   query getManifestCPQuery {
     emac_manifests(
       where: {
@@ -283,50 +191,6 @@ subscription getManifestCP {
       }
     }
   }
-
-subscription getManifestSubPer($id: uuid!) {
-  emac_manifests(where: {gen_id: {_eq: $id}}) {
-    id
-    created_at
-    manifest_date
-    manifest_no
-    note
-    reference_number
-    status
-    wt_stt
-    wr_stt
-    wg_stt
-    wd_stt
-    security_seal
-    relocate_date
-    type_of_service {
-      id
-      name
-      name_short
-    }
-    transporter_operations {
-      transporter {
-        tran_name
-        id
-      }
-    }
-     waste_operations_aggregate {
-      aggregate {
-        sum {
-          weight_disposal
-          weight_generator
-        }
-      }
-    }
-    generator {
-      gen_name
-      id
-    }
-    disposal {
-      dis_name
-    }
-  }
-}
 
   query getManifestPerQuery($id: uuid!) {
     emac_manifests(where: {gen_id: {_eq: $id}}) {
@@ -371,4 +235,3 @@ subscription getManifestSubPer($id: uuid!) {
       }
     }
   }
-

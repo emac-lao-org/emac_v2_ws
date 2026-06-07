@@ -376,7 +376,7 @@ export default {
                       .query({
                         query:
                           require("~/gql/queries/waste_categories/wasteCatagoriesExtend_q")
-                            .wasteCatagoriesExtendSub,
+                            .wasteCatagoriesExtendQuery,
                         variables: {
                           status: 0,
                         },

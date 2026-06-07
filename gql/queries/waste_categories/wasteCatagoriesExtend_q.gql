@@ -1,4 +1,4 @@
-query wasteCatagoriesExtendSub($status: Int) {
+query wasteCatagoriesExtendQuery($status: Int) {
   emac_catalog_operations(where: {status: {_eq: $status}}) {
     cat_name
     cat_id

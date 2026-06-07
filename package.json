@@ -4,12 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
+    "build": "nuxt generate",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint:prettier": "prettier --check .",
-    "lint": "yarn lint:prettier",
+    "lint": "npm run lint:prettier",
     "lintfix": "prettier --write --list-different ."
+  },
+  "engines": {
+    "node": ">=16 <17"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^5.0.1",
@@ -26,7 +29,6 @@
     "firebase": "^9.9.0",
     "fs": "^0.0.1-security",
     "graphql-tag": "^2.12.6",
-    "graphql-ws": "^5.11.2",
     "js-cookie": "^3.0.1",
     "mapbox-gl": "^2.10.0",
     "mapbox-gl-geocoder": "^2.0.1",

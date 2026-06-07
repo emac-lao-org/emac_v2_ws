@@ -13,12 +13,11 @@ const firebaseConfig = {
 
 const graphqlHttpEndpoint =
   process.env.GRAPHQL_HTTP_ENDPOINT || 'http://localhost:8080/v1/graphql'
-const graphqlWsEndpoint =
-  process.env.GRAPHQL_WS_ENDPOINT || 'ws://localhost:8080/v1/graphql'
 const mapboxAccessToken = process.env.MAPBOX_ACCESS_TOKEN || ''
 
 export default {
   ssr: false,
+  target: 'static',
   env: {
     MAPBOX_ACCESS_TOKEN: mapboxAccessToken,
   },
@@ -113,17 +112,12 @@ export default {
     clientConfigs: {
       default: {
         httpEndpoint: graphqlHttpEndpoint,
-        wsEndpoint: graphqlWsEndpoint,
-        wsLinkOptions: {
-          reconnect: true,
-        },
         httpLinkOptions: {
           credentials: 'same-origin',
         },
         tokenName: 'token',
         authenticationType: 'Bearer',
         persisting: false,
-        websocketsOnly: true,
       },
     },
   },
@@ -167,5 +161,8 @@ export default {
     vendor: [
       'vue-apexchart'
     ]
-  }
+  },
+  generate: {
+    fallback: '200.html',
+  },
 }
