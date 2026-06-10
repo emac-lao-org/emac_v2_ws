@@ -1,0 +1,46 @@
+query catalogExtensionReminder(
+  $operationStatuses: [Int!]
+  $startDate: date!
+  $endDate: date!
+) {
+  emac_catalog_operations(
+    where: {
+      status: { _in: $operationStatuses }
+      catalog: { created_at: { _gte: $startDate, _lte: $endDate } }
+    }
+    order_by: [{ expire_date: asc }, { created_at: desc }]
+  ) {
+    id
+    cat_name
+    custom_description
+    cat_date
+    expire_date
+    quota_amount
+    remaining_amount
+    summary_amount
+    status
+    created_at
+    catalog {
+      id
+      catalog_no
+      created_at
+      generator {
+        id
+        gen_name
+        gen_name_lo
+        emac_id
+      }
+    }
+    waste_category {
+      code
+      entry_type
+      description_6_lo
+    }
+    extension_operations {
+      id
+      extended_type
+      status
+      created_at
+    }
+  }
+}

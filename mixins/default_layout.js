@@ -13,6 +13,7 @@ export default {
       requestQuota: 0,
       requestTime: 0,
       extended_request: 0,
+      catalog_extension_tracking_count: 0,
       catagories_expired: 0,
       request_to_add_categories: 0,
       topup_requests: 0,
@@ -79,6 +80,11 @@ export default {
             {
               title: `${this.$t("catalog_extended_request")}`,
               to: "/catalog_extended_request",
+              amount: 0,
+            },
+            {
+              title: `${this.$t("catalog_extension_tracking")}`,
+              to: "/catalog_extension_tracking",
               amount: 0,
             },
             {
@@ -184,6 +190,57 @@ export default {
     checkLanguage() {
       const locale = localStorage.getItem("lang");
       this.$i18n.locale = locale;
+    },
+    hasExtensionRequest(item, type) {
+      return (item.extension_operations || []).some(
+        (operation) => operation.extended_type === type
+      );
+    },
+    daysUntilExpire(item) {
+      if (!item.expire_date) return Number.MAX_SAFE_INTEGER;
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const expireDate = new Date(item.expire_date);
+      expireDate.setHours(0, 0, 0, 0);
+
+      return Math.floor((expireDate.getTime() - today.getTime()) / 86400000);
+    },
+    quotaUsedPercent(item) {
+      const quotaAmount = Number(item.quota_amount || 0);
+      const remainingAmount = Number(item.remaining_amount || 0);
+
+      if (!quotaAmount) return 0;
+
+      return ((quotaAmount - remainingAmount) / quotaAmount) * 100;
+    },
+    matchesCatalogExtensionReminder(item, type) {
+      if (type === "Time extended") {
+        const days = this.daysUntilExpire(item);
+        return (
+          [1, 2].includes(Number(item.status)) &&
+          days >= 0 &&
+          days <= 30 &&
+          !this.hasExtensionRequest(item, "Time extended")
+        );
+      }
+
+      return (
+        [1, 4].includes(Number(item.status)) &&
+        this.quotaUsedPercent(item) >= 90 &&
+        !this.hasExtensionRequest(item, "Quota extended")
+      );
+    },
+    countCatalogExtensionReminderActions(records) {
+      const timeCount = records.filter((item) =>
+        this.matchesCatalogExtensionReminder(item, "Time extended")
+      ).length;
+      const quotaCount = records.filter((item) =>
+        this.matchesCatalogExtensionReminder(item, "Quota extended")
+      ).length;
+
+      return timeCount + quotaCount;
     },
   },
   mounted() {
@@ -381,16 +438,41 @@ export default {
                           status: 0,
                         },
                       })
-                      .then((data) => {
+                      .then(async (data) => {
                         this.request_to_add_categories =
                           data.data.emac_catalog_operations.length;
                         // console.log("🚀 ~ file: default_layout.js:377 ~ .then ~ this.request_to_add_categories", this.request_to_add_categories)
+
+                        try {
+                          const currentYear = new Date().getFullYear();
+                          const reminderData = await this.$apollo.query({
+                            query: require("~/gql/queries/waste_categories/catalogExtensionReminder.gql")
+                              .catalogExtensionReminder,
+                            variables: {
+                              operationStatuses: [1, 2, 4],
+                              startDate: `${currentYear}-01-01`,
+                              endDate: `${currentYear}-12-31`,
+                            },
+                          });
+
+                          this.catalog_extension_tracking_count =
+                            this.countCatalogExtensionReminderActions(
+                              reminderData.data.emac_catalog_operations || []
+                            );
+                        } catch (err) {
+                          console.log(
+                            "catalog extension tracking badge error",
+                            err
+                          );
+                          this.catalog_extension_tracking_count = 0;
+                        }
 
                         this.amount_catalog =
                           this.waste_catalog_approved +
                           this.extended_request +
                           this.catagories_expired +
-                          this.request_to_add_categories;
+                          this.request_to_add_categories +
+                          this.catalog_extension_tracking_count;
 
                         this.total =
                           this.amount +
@@ -418,6 +500,11 @@ export default {
                                 title: `${this.$t("catalog_extended_request")}`,
                                 to: "/catalog_extended_request",
                                 amount: this.extended_request,
+                              },
+                              {
+                                title: `${this.$t("catalog_extension_tracking")}`,
+                                to: "/catalog_extension_tracking",
+                                amount: this.catalog_extension_tracking_count,
                               },
                               {
                                 title: `${this.$t("expired_category")}`,

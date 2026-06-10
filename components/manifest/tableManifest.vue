@@ -643,7 +643,9 @@ export default {
           let chunk = data.emac_manifests;
           // Format specific keys strictly for CSV layout
           for (let item of chunk) {
-            let transporters = item.transporter_operations.map(t => t.transporter.tran_name);
+            let transportersLo = item.transporter_operations.map(
+              (t) => t.transporter.tran_name_lo
+            );
             let qty_d = parseFloat(item.waste_operations_aggregate.aggregate.sum.weight_disposal || 0);
             let qty_g = parseFloat(item.waste_operations_aggregate.aggregate.sum.weight_generator || 0);
             
@@ -664,18 +666,22 @@ export default {
             else if (sttSum == 102) statusText = "Expired";
             
             allMappedData.push({
-              "Manifest No": item.manifest_no || "-",
-              "Expected Relocate Date": item.expected_relocate_date || "-",
-              "Manifest Date": item.manifest_date || "-",
-              "Transporter 1": transporters[0] || "-",
-              "Transporter 2": transporters[1] || "-",
-              "Transporter 3": transporters[2] || "-",
-              "Status": statusText,
-              "Disposal": item.disposal?.dis_name_lo || "-",
-              "Generator": item.generator?.gen_name_lo || "-",
-              "WG Weight": qty_g,
-              "WD Weight": qty_d,
-              "Type of waste": item.type_of_service?.name || "-"
+              manifest_date: item.manifest_date || "-",
+              manifest_no: item.manifest_no || "-",
+              note: item.note || "-",
+              message: item.message || "",
+              security_seal: item.security_seal || "-",
+              relocate_date: item.relocate_date || "-",
+              expected_relocate_date: item.expected_relocate_date || "-",
+              manifest_stt: statusText,
+              transporter_lo_1: transportersLo[0] || "",
+              transporter_lo_2: transportersLo[1] || "",
+              transporter_lo_3: transportersLo[2] || "",
+              Disposal: item.disposal?.dis_name_lo || "-",
+              Generator: item.generator?.gen_name_lo || "-",
+              WG_weight: qty_g,
+              WD_weight: qty_d,
+              tos: item.type_of_service?.name || "-"
             });
             this.exportProgress++;
           }
