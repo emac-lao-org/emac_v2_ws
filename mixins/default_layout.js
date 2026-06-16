@@ -14,7 +14,6 @@ export default {
       requestTime: 0,
       extended_request: 0,
       catalog_extension_tracking_count: 0,
-      catagories_expired: 0,
       request_to_add_categories: 0,
       topup_requests: 0,
       data_manifest: [],
@@ -85,11 +84,6 @@ export default {
             {
               title: `${this.$t("catalog_extension_tracking")}`,
               to: "/catalog_extension_tracking",
-              amount: 0,
-            },
-            {
-              title: `${this.$t("expired_category")}`,
-              to: "/expired_category",
               amount: 0,
             },
             {
@@ -411,122 +405,97 @@ export default {
               .then((data) => {
                 this.requestTime = data.data.emac_catalog_operations.length;
                 this.extended_request = this.requestQuota + this.requestTime;
-
-                var d = new Date();
-                d.setDate(d.getDate());
-                const date = `${d.getFullYear()}-${d.getMonth() + 1
-                  }-${d.getDate()}`;
                 this.$apollo
                   .query({
                     query:
-                      require("~/gql/queries/waste_categories/wasteCatagoriesExpire")
-                        .wasteCatagoriesExpire,
+                      require("~/gql/queries/waste_categories/wasteCatagoriesExtend_q")
+                        .wasteCatagoriesExtendQuery,
                     variables: {
-                      expire_date: date,
+                      status: 0,
                     },
                   })
-                  .then((data) => {
-                    this.catagories_expired =
+                  .then(async (data) => {
+                    this.request_to_add_categories =
                       data.data.emac_catalog_operations.length;
+                    // console.log("🚀 ~ file: default_layout.js:377 ~ .then ~ this.request_to_add_categories", this.request_to_add_categories)
 
-                    this.$apollo
-                      .query({
-                        query:
-                          require("~/gql/queries/waste_categories/wasteCatagoriesExtend_q")
-                            .wasteCatagoriesExtendQuery,
+                    try {
+                      const currentYear = new Date().getFullYear();
+                      const reminderData = await this.$apollo.query({
+                        query: require("~/gql/queries/waste_categories/catalogExtensionReminder.gql")
+                          .catalogExtensionReminder,
                         variables: {
-                          status: 0,
+                          operationStatuses: [1, 2, 4],
+                          startDate: `${currentYear}-01-01`,
+                          endDate: `${currentYear}-12-31`,
                         },
-                      })
-                      .then(async (data) => {
-                        this.request_to_add_categories =
-                          data.data.emac_catalog_operations.length;
-                        // console.log("🚀 ~ file: default_layout.js:377 ~ .then ~ this.request_to_add_categories", this.request_to_add_categories)
-
-                        try {
-                          const currentYear = new Date().getFullYear();
-                          const reminderData = await this.$apollo.query({
-                            query: require("~/gql/queries/waste_categories/catalogExtensionReminder.gql")
-                              .catalogExtensionReminder,
-                            variables: {
-                              operationStatuses: [1, 2, 4],
-                              startDate: `${currentYear}-01-01`,
-                              endDate: `${currentYear}-12-31`,
-                            },
-                          });
-
-                          this.catalog_extension_tracking_count =
-                            this.countCatalogExtensionReminderActions(
-                              reminderData.data.emac_catalog_operations || []
-                            );
-                        } catch (err) {
-                          console.log(
-                            "catalog extension tracking badge error",
-                            err
-                          );
-                          this.catalog_extension_tracking_count = 0;
-                        }
-
-                        this.amount_catalog =
-                          this.waste_catalog_approved +
-                          this.extended_request +
-                          this.catagories_expired +
-                          this.request_to_add_categories +
-                          this.catalog_extension_tracking_count;
-
-                        this.total =
-                          this.amount +
-                          this.amount_catalog +
-                          this.items_2[2].amount;
-
-                        //   console.log('this.total :>> ', this.total);
-
-                        this.items_mul = [
-                          {
-                            action: "mdi-text-box-check-outline",
-                            active: false,
-                            amount: this.amount_catalog,
-                            items: [
-                              {
-                                title: `${this.$t("waste_catalog")}`,
-                                to: "/waste_catalog/",
-                              },
-                              {
-                                title: `${this.$t("waste_catalog_approved")}`,
-                                to: "/waste_catalog_approved",
-                                amount: this.waste_catalog_approved,
-                              },
-                              {
-                                title: `${this.$t("catalog_extended_request")}`,
-                                to: "/catalog_extended_request",
-                                amount: this.extended_request,
-                              },
-                              {
-                                title: `${this.$t("catalog_extension_tracking")}`,
-                                to: "/catalog_extension_tracking",
-                                amount: this.catalog_extension_tracking_count,
-                              },
-                              {
-                                title: `${this.$t("expired_category")}`,
-                                to: "/expired_category",
-                                amount: this.catagories_expired,
-                              },
-                              {
-                                title: `${this.$t(
-                                  "request_to_add_categories"
-                                )}`,
-                                to: "/request_to_add_categories",
-                                amount: this.request_to_add_categories,
-                              },
-                              {
-                                title: `${this.$t("waste_category_names")}`,
-                                to: "/waste_category_names",
-                              },
-                            ],
-                            title: `${this.$t("waste_catalog_management")}`,
-                          },
-                        ];
                       });
+
+                      this.catalog_extension_tracking_count =
+                        this.countCatalogExtensionReminderActions(
+                          reminderData.data.emac_catalog_operations || []
+                        );
+                    } catch (err) {
+                      console.log(
+                        "catalog extension tracking badge error",
+                        err
+                      );
+                      this.catalog_extension_tracking_count = 0;
+                    }
+
+                    this.amount_catalog =
+                      this.waste_catalog_approved +
+                      this.extended_request +
+                      this.request_to_add_categories +
+                      this.catalog_extension_tracking_count;
+
+                    this.total =
+                      this.amount +
+                      this.amount_catalog +
+                      this.items_2[2].amount;
+
+                    //   console.log('this.total :>> ', this.total);
+
+                    this.items_mul = [
+                      {
+                        action: "mdi-text-box-check-outline",
+                        active: false,
+                        amount: this.amount_catalog,
+                        items: [
+                          {
+                            title: `${this.$t("waste_catalog")}`,
+                            to: "/waste_catalog/",
+                          },
+                          {
+                            title: `${this.$t("waste_catalog_approved")}`,
+                            to: "/waste_catalog_approved",
+                            amount: this.waste_catalog_approved,
+                          },
+                          {
+                            title: `${this.$t("catalog_extended_request")}`,
+                            to: "/catalog_extended_request",
+                            amount: this.extended_request,
+                          },
+                          {
+                            title: `${this.$t("catalog_extension_tracking")}`,
+                            to: "/catalog_extension_tracking",
+                            amount: this.catalog_extension_tracking_count,
+                          },
+                          {
+                            title: `${this.$t(
+                              "request_to_add_categories"
+                            )}`,
+                            to: "/request_to_add_categories",
+                            amount: this.request_to_add_categories,
+                          },
+                          {
+                            title: `${this.$t("waste_category_names")}`,
+                            to: "/waste_category_names",
+                          },
+                        ],
+                        title: `${this.$t("waste_catalog_management")}`,
+                      },
+                    ];
                   });
               });
           });
