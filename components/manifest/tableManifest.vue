@@ -448,9 +448,18 @@ export default {
       const getStatusConditions = (statusName) => {
         if (!statusName) return [];
         switch (statusName.toLowerCase()) {
-          case 'requested': return [{ wg_stt: { _in: [1, 2] }, wt_stt: { _eq: 0 }, wd_stt: { _eq: 0 }, wr_stt: { _eq: 0 } }]; 
-          case 'ready': return [{ wg_stt: { _eq: 3 }, wt_stt: { _eq: 0 }, wd_stt: { _eq: 0 }, wr_stt: { _eq: 0 } }]; 
-          case 'wt processing': return [{ wg_stt: { _eq: 3 }, wt_stt: { _in: [1, 2] }, wd_stt: { _eq: 0 }, wr_stt: { _eq: 0 } }]; 
+          case 'requested': return [
+            { wg_stt: { _in: [1, 2] }, wt_stt: { _eq: 0 }, wd_stt: { _eq: 0 }, wr_stt: { _eq: 0 } },
+            { wg_stt: { _eq: 1 }, wt_stt: { _eq: 1 }, wd_stt: { _eq: 0 }, wr_stt: { _eq: 0 } },
+          ];
+          case 'ready': return [
+            { wg_stt: { _eq: 3 }, wt_stt: { _eq: 0 }, wd_stt: { _eq: 0 }, wr_stt: { _eq: 0 } },
+            { wg_stt: { _eq: 1 }, wt_stt: { _eq: 1 }, wd_stt: { _eq: 1 }, wr_stt: { _eq: 0 } },
+          ];
+          case 'wt processing': return [
+            { wg_stt: { _eq: 3 }, wt_stt: { _in: [1, 2] }, wd_stt: { _eq: 0 }, wr_stt: { _eq: 0 } },
+            { wg_stt: { _eq: 2 }, wt_stt: { _eq: 2 }, wd_stt: { _eq: 1 }, wr_stt: { _eq: 0 } },
+          ];
           case 'wd processing': return [{ wg_stt: { _eq: 3 }, wt_stt: { _eq: 3 }, wd_stt: { _in: [1, 2] }, wr_stt: { _eq: 0 } }]; 
           case 'completed': return [{ wg_stt: { _eq: 3 }, wt_stt: { _eq: 3 }, wd_stt: { _eq: 3 }, wr_stt: { _eq: 0 } }]; 
           case 'certified': return [{ wg_stt: { _eq: 3 }, wt_stt: { _eq: 3 }, wd_stt: { _eq: 3 }, wr_stt: { _eq: 1 } }]; 
