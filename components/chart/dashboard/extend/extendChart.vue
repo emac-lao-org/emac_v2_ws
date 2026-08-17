@@ -48,15 +48,15 @@ export default {
     return {
       data: [
         {
-          icon: "mdi-timelapse",
-          name: "Time extension",
-          amount: this.amountT,
-          to: "/catalog_extended_request",
-        },
-        {
           icon: "mdi-train-car-centerbeam-full",
           name: "Quota extension",
           amount: this.amountQ,
+          to: "/catalog_extended_request",
+        },
+        {
+          icon: "mdi-timelapse",
+          name: "Time extension",
+          amount: this.amountT,
           to: "/catalog_extended_request",
         },
       ],
@@ -73,9 +73,9 @@ export default {
         .query({
           fetchPolicy: "no-cache",
           query: require("~/gql/queries/waste_categories/wasteCatagoriesExtend")
-            .wasteCatagoriesExtend,
+            .wasteCatagoriesTimeExtend,
           variables: {
-            status: 5,
+            status: 3,
           },
         })
         .then((data) => {
@@ -91,9 +91,9 @@ export default {
         .query({
           fetchPolicy: "no-cache",
           query: require("~/gql/queries/waste_categories/wasteCatagoriesExtend")
-            .wasteCatagoriesExtend,
+            .wasteCatagoriesTimeQuotaExtend,
           variables: {
-            status: 3,
+            status: 5,
           },
         })
         .then((data) => {
@@ -106,15 +106,15 @@ export default {
 
           this.data = [
             {
-              icon: "mdi-timelapse",
-              name: "Time extension",
-              amount: this.amountT,
-              to: "/catalog_extended_request",
-            },
-            {
               icon: "mdi-train-car-centerbeam-full",
               name: "Quota extension",
               amount: this.amountQ,
+              to: "/catalog_extended_request",
+            },
+            {
+              icon: "mdi-timelapse",
+              name: "Time extension",
+              amount: this.amountT,
               to: "/catalog_extended_request",
             },
           ];

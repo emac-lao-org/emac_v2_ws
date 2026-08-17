@@ -287,6 +287,12 @@ export default {
     urgentCount() {
       return this.currentTypeRecords.filter((item) => this.isUrgent(item)).length;
     },
+    overdueCount() {
+      if (this.extensionType !== "Time extended") return 0;
+      return this.currentTypeRecords.filter(
+        (item) => this.daysUntilExpire(item) < 0
+      ).length;
+    },
     generatorCount() {
       return new Set(
         this.currentTypeRecords
@@ -319,6 +325,13 @@ export default {
           value: this.generatorCount,
           hint: this.$t("waste_generators_to_notify"),
           className: "tracking-summary-card--warning",
+        },
+        {
+          key: "overdue",
+          label: this.$t("overdue_items"),
+          value: this.overdueCount,
+          hint: this.$t("overdue_hint_time"),
+          className: "tracking-summary-card--danger",
         },
         {
           key: "year",
@@ -388,7 +401,6 @@ export default {
         const days = this.daysUntilExpire(item);
         return (
           [1, 2].includes(Number(item.status)) &&
-          days >= 0 &&
           days <= 30 &&
           !this.hasExtensionRequest(item, "Time extended")
         );
@@ -410,6 +422,14 @@ export default {
     priorityMeta(item) {
       if (this.extensionType === "Time extended") {
         const days = this.daysUntilExpire(item);
+
+        if (days < 0) {
+          return {
+            color: "error",
+            label: `${Math.abs(days)} ${this.$t("days_overdue")}`,
+            hint: `${this.$t("expired")} ${this.formatDate(item.expire_date)}`,
+          };
+        }
 
         if (days <= 7) {
           return {

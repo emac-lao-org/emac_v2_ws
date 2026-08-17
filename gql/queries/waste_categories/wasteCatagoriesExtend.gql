@@ -30,6 +30,7 @@ query wasteCatagoriesTimeExtend($status: Int = 3) {
       extended_type
       extented_time
       comment
+      attachment_url
       generator {
         gen_name_lo
         emac_id
@@ -107,6 +108,7 @@ query wasteCatagoriesTimeQuotaExtend($status: Int = 5) {
       created_at
       updated_at
       comment
+      attachment_url
       catalog_operation {
         custom_description
       }

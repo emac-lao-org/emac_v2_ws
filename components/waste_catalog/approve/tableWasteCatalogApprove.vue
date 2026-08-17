@@ -207,7 +207,7 @@ export default {
           text: "EMCG ID",
           value: "generator.emac_id",
         },
-        { text:  this.$t("catalog_name"), value: "name" },
+        { text: this.$t("catalog_no"), value: "catalog_no" },
         { text:  this.$t("catalog_type"), value: "type_of_service.name_short" },
         { text:  this.$t("quota_weight"), value: "totalQuota" },
         { text: this.$t("status"), value: "status" },

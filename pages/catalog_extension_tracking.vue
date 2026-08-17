@@ -93,13 +93,13 @@ export default {
       if (type === "Time extended") {
         if (hasExtensionRequest || !item.expire_date) return false;
 
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const days = Math.floor(
-          (new Date(item.expire_date).getTime() - today.getTime()) / 86400000
-        );
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const days = Math.floor(
+        (new Date(item.expire_date).getTime() - today.getTime()) / 86400000
+      );
 
-        return [1, 2].includes(Number(item.status)) && days >= 0 && days <= 30;
+      return [1, 2].includes(Number(item.status)) && days <= 30;
       }
 
       const quotaAmount = Number(item.quota_amount || 0);

@@ -316,6 +316,8 @@
   "supporting_files_ready": "ຄໍາຂໍນີ້ມີໄຟລ໌ປະກອບ",
   "waste_generators_to_notify": "ຈໍານວນ WG ທີ່ WS ຄວນແຈ້ງເຕືອນ",
   "current_year_catalog_only": "ລວມສະເພາະ categories ໃນ catalog ປີປັດຈຸບັນ",
+  "overdue_items": "ລາຍການທີ່ເກີນກຳນົດ",
+  "overdue_hint_time": "ໝົດກຳນົດເວລາແລ້ວ ແຕ່ຍັງບໍ່ມີຄຳຂໍຂະຫຍາຍເວລາ",
   "follow_up_within_7_days": "ຄວນຕິດຕາມພາຍໃນ 7 ວັນ",
   "follow_up_full_or_near_full": "ຄວນຕິດຕາມທັນທີ ເພາະໂຄຕ້າໃກ້ເຕັມ ຫຼື ເຕັມແລ້ວ",
   "expiring_soon": "ໃກ້ໝົດອາຍຸ",

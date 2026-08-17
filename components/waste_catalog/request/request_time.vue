@@ -83,7 +83,13 @@
         <span v-else class="grey--text">—</span>
       </template>
       <template v-slot:[`item.action`]="{ item }">
-        <!-- <v-icon @click="viewItem(item)" class="mr-2"> mdi-eye</v-icon> -->
+        <v-icon
+          v-if="item.extension_operations && item.extension_operations[0]?.attachment_url"
+          @click="openAttachment(item)"
+          color="primary"
+          class="mr-2"
+          >mdi-paperclip</v-icon
+        >
         <v-icon @click="update(6, item, 0)" color="error" class="mr-2">
           mdi-close-circle-outline
         </v-icon>
@@ -93,6 +99,41 @@
         <!-- <v-icon> mdi-delete-outline </v-icon> -->
       </template>
     </v-data-table>
+
+    <v-dialog v-model="attachmentDialog" max-width="850" persistent>
+      <v-card>
+        <v-card-title primary-title class="blue--text darken-4">
+          <h3>Attachment</h3>
+          <v-spacer></v-spacer>
+          <v-btn icon @click="attachmentDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="text-center">
+          <img
+            v-if="isImageAttachment"
+            :src="attachmentUrl"
+            style="max-width: 100%; max-height: 70vh"
+            alt="attachment"
+          />
+          <iframe
+            v-else-if="isPdfAttachment"
+            :src="attachmentUrl"
+            style="width: 100%; height: 70vh"
+          ></iframe>
+          <div v-else>
+            <p>This file type cannot be previewed.</p>
+            <v-btn
+              color="primary"
+              target="_blank"
+              :href="attachmentUrl"
+              >Open in new tab</v-btn
+            >
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
     <!-- <v-dialog v-model="dialogEdit" persistent>
       <v-card>
@@ -214,10 +255,21 @@ export default {
       view: [],
       generator: [],
       lastInx: [],
+      attachmentDialog: false,
+      attachmentUrl: "",
       // transporters: [],
     };
   },
   methods: {
+    openAttachment(item) {
+      this.attachmentUrl =
+        item.extension_operations && item.extension_operations[0]?.attachment_url
+          ? item.extension_operations[0].attachment_url
+          : "";
+      if (this.attachmentUrl) {
+        this.attachmentDialog = true;
+      }
+    },
     viewItem(item) {
       this.toggleEdit();
       this.$router.push("/waste_catalog/" + item.id);
@@ -339,6 +391,12 @@ export default {
     this.checkLanguage();
   },
   computed: {
+    isImageAttachment() {
+      return /\.(png|jpe?g|gif|webp)(\?|$)/i.test(this.attachmentUrl || "");
+    },
+    isPdfAttachment() {
+      return /\.pdf(\?|$)/i.test(this.attachmentUrl || "");
+    },
     text_title() {
       return this.$t("time_extended");
     },
@@ -421,7 +479,7 @@ export default {
           align: "center",
           sortable: false,
           value: "action",
-          width: "120px",
+          width: "170px",
         },
       ];
     },

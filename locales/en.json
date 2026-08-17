@@ -316,6 +316,8 @@
   "supporting_files_ready": "Request has supporting files",
   "waste_generators_to_notify": "Waste generators that WS should remind",
   "current_year_catalog_only": "Only current-year catalog categories are included",
+  "overdue_items": "Overdue Items",
+  "overdue_hint_time": "Already expired without a time extension request",
   "follow_up_within_7_days": "Follow up within 7 days",
   "follow_up_full_or_near_full": "Follow up now for full or near-full quota",
   "expiring_soon": "Expiring soon",
