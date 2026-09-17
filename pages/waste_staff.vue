@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-4 mt-8">
+  <div class="ml-4 mt-8" v-if="permissionChecked">
     <title-page :title="title" :width="width" />
     <v-row>
       <v-col>
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import tabHeaderWS from '~/components/users_management/tabHeaderWS.vue'
 import dialogCreateUser from '~/components/users_management/dialogCreateUser.vue'
 import getWSUsers from '~/mixins/getWSUsers'
@@ -68,13 +69,14 @@ export default {
     return {
       width: '35%',
       isMainWs: false,
+      permissionChecked: false,
     }
   },
   methods: {
     async getCurrentUserPermission() {
       const uid = this.$nuxt?.$fire?.auth?.currentUser?.uid;
       if (!uid) {
-        this.isMainWs = false;
+        this.$router.push("/");
         return;
       }
       try {
@@ -84,9 +86,15 @@ export default {
           fetchPolicy: "network-only",
         });
         this.isMainWs = !!data?.emac_users_by_pk?.is_main_ws;
+        if (!this.isMainWs) {
+          Swal.fire("Forbidden", "Only Main WS can access Waste Staff.", "error")
+            .then(() => this.$router.push("/"));
+          return;
+        }
+        this.permissionChecked = true;
       } catch (error) {
         console.error("Error loading WS permission:", error);
-        this.isMainWs = false;
+        this.$router.push("/");
       }
     },
   },

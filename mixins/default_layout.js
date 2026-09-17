@@ -99,7 +99,7 @@ export default {
           title: `${this.$t("waste_catalog_management")}`,
         },
       ],
-      items_mul_2: [],
+      // items_mul_2 moved to computed
       items_mul_3: [
         {
           action: "mdi-text-box-plus-outline",
@@ -237,6 +237,27 @@ export default {
       return timeCount + quotaCount;
     },
   },
+  computed: {
+    items_mul_2() {
+      const stakeholderItems = [
+        { title: `${this.$t("waste_generator")}`, to: "/waste_generator" },
+        { title: `${this.$t("waste_transporter")}`, to: "/waste_transporter" },
+        { title: `${this.$t("waste_disposal")}`, to: "/waste_disposal" },
+        { title: `${this.$t("waste_regulator")}`, to: "/waste_regulator" },
+      ];
+      if (this.data?.is_main_ws) {
+        stakeholderItems.push({ title: `${this.$t("waste_staff")}`, to: "/waste_staff" });
+      }
+      return [
+        {
+          action: " mdi-source-fork",
+          active: false,
+          items: stakeholderItems,
+          title: `${this.$t("system_stake_holder_management")}`,
+        },
+      ];
+    },
+  },
   mounted() {
     this.getToken(), this.getData(), this.checkLanguage();
     this.items = [
@@ -297,24 +318,6 @@ export default {
         title: `${this.$t("manage_waste_categories")}`,
         to: "/manage_waste_categories",
       }),
-      (this.items_mul_2 = [
-        {
-          action: " mdi-source-fork",
-          active: false,
-          items: [
-            { title: `${this.$t("waste_generator")}`, to: "/waste_generator" },
-            {
-              title: `${this.$t("waste_transporter")}`,
-              to: "/waste_transporter",
-            },
-            { title: `${this.$t("waste_disposal")}`, to: "/waste_disposal" },
-            { title: `${this.$t("waste_regulator")}`, to: "/waste_regulator" },
-            { title: `${this.$t("waste_staff")}`, to: "/waste_staff" },
-          ],
-
-          title: `${this.$t("system_stake_holder_management")}`,
-        },
-      ]),
       //==================================================================================================
       // items_mul_3
       this.$apollo
