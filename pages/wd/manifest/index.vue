@@ -658,8 +658,13 @@ export default {
           const wsCertifyDate = manifest?.qr_codes?.[0]?.ws_certify_date;
           const wrUserName = manifest?.wr?.name;
           const wsCertifyUserName = manifest?.wsCertifyUserByWsCertifyUser?.name;
+          const wsCertifyUserEmcId =
+            manifest?.wsCertifyUserByWsCertifyUser?.emc_id;
 
-          this.emcr = manifest?.wr?.regulator?.emac_id || (wsCertifyUserName ? "WS" : "");
+          this.emcr =
+            manifest?.wr?.regulator?.emac_id ||
+            wsCertifyUserEmcId ||
+            (wsCertifyUserName ? "WS" : "");
           this.date = wrDate || wsCertifyDate ? moment(wrDate || wsCertifyDate).format("DD-MM-YYYY") : "";
           this.user = wrUserName || wsCertifyUserName || "";
           this.url_gen =

@@ -27,6 +27,7 @@ query getUserInfoManifest($id: uuid!) {
       name
       email
       updated_at
+      emc_id
     }
     wg: wgUserByWgUser {
       name
