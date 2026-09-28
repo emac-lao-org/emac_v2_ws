@@ -423,7 +423,7 @@ export default {
       }
 
       if (item.id === WR_SPECIAL_ZONE_LEVEL_ID) {
-        return this.$t("wr_level_district_special_zone");
+        return this.$t("wr_level_special_zone");
       }
 
       const label =
