@@ -116,6 +116,8 @@
   "organization_name": "Organization name",
   "organization_level": "Level",
   "organization_level_name": "Level name",
+  "wr_level_district": "District",
+  "wr_level_district_special_zone": "District / Special Zone",
   "contact": "Contact",
   "address": "Address",
   "edit": "Edit",

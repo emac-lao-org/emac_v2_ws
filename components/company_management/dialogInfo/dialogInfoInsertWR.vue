@@ -419,11 +419,11 @@ export default {
       }
 
       if (item.id === WR_DISTRICT_NORMAL_LEVEL_ID) {
-        return "District";
+        return this.$t("wr_level_district");
       }
 
       if (item.id === WR_SPECIAL_ZONE_LEVEL_ID) {
-        return "District / Special Zone";
+        return this.$t("wr_level_district_special_zone");
       }
 
       const label =
@@ -1085,7 +1085,7 @@ export default {
         level_name: "District",
         level_name_lo: "ຂັ້ນຫ້ອງການ",
         level_order: 3,
-        display_name: "District",
+        display_name: this.$t("wr_level_district"),
       };
 
       if (insertIndex === -1) {
