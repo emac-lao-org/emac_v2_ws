@@ -66,3 +66,5 @@ Recommended Cloudflare Pages settings:
 - Node version: `16`
 
 See [CLOUDFLARE_PAGES_DEPLOY_CHECKLIST.md](/Users/toxin999/emac_wt/emac-ws/emac-ws/CLOUDFLARE_PAGES_DEPLOY_CHECKLIST.md) for the full deploy checklist.
+
+<!-- codespaces write access test 2026-10-08 -->
